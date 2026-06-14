@@ -10,6 +10,7 @@ services:
       depends_on:
           - db
           - maildev
+          - nginx
   db:
     image: mariadb
     environment:
