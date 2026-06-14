@@ -1,0 +1,98 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}{{ 'security.register.title'|trans({}, 'page_security') }}{% endblock %}
+
+{% block main %}
+    <twig:Form :form="form" classCard="max-w-md mx-auto mt-8">
+
+        <twig:block name="title">
+            <i class="fa-solid fa-user-plus mr-2 text-azur-600"></i>
+            {{ 'security.register.title'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="subtitle">
+            <p class="text-ink-500 mt-2">{{ 'security.register.subtitle'|trans({}, 'page_security') }}</p>
+        </twig:block>
+
+        <twig:block name="header">
+            <div class="bg-ink-50 border border-ink-100 p-4 mb-6">
+                <p class="text-sm text-ink-700">
+                    <i class="fa-solid fa-info-circle mr-2 text-azur-600"></i>
+                    {{ 'security.register.welcome_message'|trans({}, 'page_security') }}
+                </p>
+            </div>
+        </twig:block>
+
+        <twig:block name="fields">
+            <div class="space-y-4">
+                <div class="form-group">
+                    {{ form_label(form.email, null, {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form.email, {
+                        'attr': {'class': 'da-input'}
+                    }) }}
+                    {{ form_errors(form.email) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.plainPassword.first, null, {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form.plainPassword.first, {
+                        'attr': {'class': 'da-input'}
+                    }) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.plainPassword.second, null, {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form.plainPassword.second, {
+                        'attr': {'class': 'da-input'}
+                    }) }}
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+
+                <div class="bg-ink-50 border border-ink-100 p-4">
+                    <h4 class="font-bold text-sm mb-2 text-azur-600">
+                        <i class="fa-solid fa-shield-halved mr-2"></i>
+                        {{ 'security.register.password_requirements.title'|trans({}, 'page_security') }}
+                    </h4>
+                    <ul class="text-xs text-ink-700 space-y-1">
+                        <li>
+                            <i class="fa-solid fa-check text-success-600 mr-2"></i>
+                            {{ 'security.register.password_requirements.requirement1'|trans({}, 'page_security') }}
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-success-600 mr-2"></i>
+                            {{ 'security.register.password_requirements.requirement2'|trans({}, 'page_security') }}
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-success-600 mr-2"></i>
+                            {{ 'security.register.password_requirements.requirement3'|trans({}, 'page_security') }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </twig:block>
+
+        <twig:block name="label">
+            <i class="fa-solid fa-user-plus mr-2"></i>
+            {{ 'security.register.submit'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="footer">
+            <div class="mt-6 pt-6 border-t border-ink-100 text-center">
+                <p class="text-sm text-ink-500">
+                    {{ 'security.register.already_account'|trans({}, 'page_security') }}
+                    <a href="{{ path('app_login') }}" class="text-azur-600 hover:text-azur-700 hover:underline font-semibold">
+                        {{ 'security.register.login_link'|trans({}, 'page_security') }}
+                    </a>
+                </p>
+            </div>
+        </twig:block>
+
+    </twig:Form>
+{% endblock %}

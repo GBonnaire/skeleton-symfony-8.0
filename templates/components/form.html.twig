@@ -1,0 +1,50 @@
+{% set _title %}{% block title %}{% endblock %}{% endset %}
+{% set _subtitle %}{% block subtitle %}{% endblock %}{% endset %}
+{% set _sidebar %}{% block sidebar %}{% endblock %}{% endset %}
+
+<div {{ stimulus_controller('components/twig/form') }} class="container mx-auto lg:px-4 py-6">
+    <div class="flex flex-col lg:flex-row gap-6 items-start">
+
+        <div class="w-full lg:flex-1 {{ classCard }}">
+            <div class="card w-full">
+
+                {% if _title|trim %}
+                <header>
+                    <h2>{{ _title|raw }}</h2>
+                    {% if _subtitle|trim %}{{ _subtitle|raw }}{% endif %}
+                </header>
+                {% endif %}
+
+                <section>
+                    {% block header %}{% endblock %}
+
+                    {% if form %}
+                        {{ form_start(form, {attr: {class: "form grid gap-6", 'data-controller': 'components--forms--form'}}) }}
+                    {% endif %}
+
+                    {% block fields %}{% endblock %}
+
+                    {% if form %}{{ form_rest(form) }}{% endif %}
+
+                    <div class="controls">
+                        {% block controls %}
+                            <button type="submit" class="{{ submitClass }}">{% block label %}Envoyer{% endblock %}</button>
+                        {% endblock %}
+                    </div>
+
+                    {% if form %}{{ form_end(form) }}{% endif %}
+
+                    {% block footer %}{% endblock %}
+                </section>
+
+            </div>
+        </div>
+
+        {% if _sidebar|trim %}
+        <div class="w-full lg:w-80 lg:sticky lg:top-4">
+            {{ _sidebar|raw }}
+        </div>
+        {% endif %}
+
+    </div>
+</div>

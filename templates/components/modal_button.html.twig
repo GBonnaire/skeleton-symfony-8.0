@@ -1,0 +1,8 @@
+{%- set has_extra = actionController is not empty and actionMethod is not empty -%}
+<button class="{{ class }}"
+    {{ stimulus_controller('modal-action', {id: modalId}) }}
+    {{ stimulus_action('modal-action', 'close', 'click') }}
+    {%- if has_extra -%}
+        {{ stimulus_controller(actionController) }}
+        {{ stimulus_action(actionController, actionMethod, 'click', actionParam) }}
+    {%- endif -%}>{{ label }}</button>

@@ -1,0 +1,86 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}{{ 'security.reset_password.request.title'|trans({}, 'page_security') }}{% endblock %}
+
+{% block main %}
+    <twig:Form :form="form" classCard="max-w-md mx-auto mt-8">
+
+        <twig:block name="title">
+            <i class="fa-solid fa-key mr-2 text-azur-600"></i>
+            {{ 'security.reset_password.request.title'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="subtitle">
+            <p class="text-ink-500 mt-2">{{ 'security.reset_password.request.subtitle'|trans({}, 'page_security') }}</p>
+        </twig:block>
+
+        <twig:block name="header">
+            <div class="bg-ink-50 border border-ink-100 p-4 mb-6">
+                <p class="text-sm text-ink-700">
+                    <i class="fa-solid fa-info-circle mr-2 text-azur-600"></i>
+                    {{ 'security.reset_password.request.instructions'|trans({}, 'page_security') }}
+                </p>
+            </div>
+
+            {% for flash_error in app.flashes('reset_password_error') %}
+                <div class="bg-danger-50 border border-danger-500/25 text-danger-600 px-4 py-3 mb-4" role="alert">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-exclamation-circle mr-2 mt-1"></i>
+                        <p class="text-sm">{{ flash_error }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </twig:block>
+
+        <twig:block name="fields">
+            <div class="form-group">
+                {{ form_label(form.email, 'security.reset_password.request.email_label'|trans({}, 'page_security'), {
+                    'label_attr': {'class': 'da-label'}
+                }) }}
+                {{ form_widget(form.email, {
+                    'attr': {
+                        'class': 'da-input',
+                        'placeholder': 'security.reset_password.request.email_placeholder'|trans({}, 'page_security')
+                    }
+                }) }}
+                {{ form_errors(form.email) }}
+                <p class="da-caption mt-2">
+                    <i class="fa-solid fa-lock mr-1"></i>
+                    {{ 'security.reset_password.request.privacy_note'|trans({}, 'page_security') }}
+                </p>
+            </div>
+        </twig:block>
+
+        <twig:block name="label">
+            <i class="fa-solid fa-paper-plane mr-2"></i>
+            {{ 'security.reset_password.request.submit'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="footer">
+            <div class="mt-6 text-center">
+                <a href="{{ path('app_login') }}" class="inline-flex items-center text-sm text-azur-600 hover:text-azur-700 hover:underline">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    {{ 'security.reset_password.request.back_to_login'|trans({}, 'page_security') }}
+                </a>
+            </div>
+
+            <div class="mt-6 bg-ink-50 border border-ink-100 p-4">
+                <h3 class="font-bold mb-2 text-azur-600 flex items-center">
+                    <i class="fa-solid fa-circle-question mr-2"></i>
+                    {{ 'security.reset_password.request.help.title'|trans({}, 'page_security') }}
+                </h3>
+                <div class="text-sm text-ink-500 space-y-2">
+                    <p>
+                        <strong>{{ 'security.reset_password.request.help.question1'|trans({}, 'page_security') }}</strong><br>
+                        {{ 'security.reset_password.request.help.answer1'|trans({}, 'page_security') }}
+                    </p>
+                    <p>
+                        <strong>{{ 'security.reset_password.request.help.question2'|trans({}, 'page_security') }}</strong><br>
+                        {{ 'security.reset_password.request.help.answer2'|trans({}, 'page_security') }}
+                    </p>
+                </div>
+            </div>
+        </twig:block>
+
+    </twig:Form>
+{% endblock %}

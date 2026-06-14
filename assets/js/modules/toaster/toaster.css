@@ -1,0 +1,112 @@
+/* ── Conteneur des toasts ────────────────────────────────────────── */
+#notifications-flash-toaster-container {
+  position: fixed;
+  z-index: 9999;
+  top: 70px;
+  left: 0;
+  right: 0;
+}
+
+@media (min-width: 768px) {
+  #notifications-flash-toaster-container {
+    top: auto;
+    bottom: 30px;
+    left: auto;
+    right: 20px;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  #notifications-flash-toaster-container {
+    width: 100%;
+  }
+}
+
+.notifications {
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Animation entrée/sortie (toasts flottants uniquement) ───────── */
+#notifications-flash-toaster-container .da-toast {
+  position: relative;
+  overflow: hidden;
+  transform: translateX(calc(100% + 40px));
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 640px) {
+  #notifications-flash-toaster-container .da-toast {
+    border-radius: 0;
+    max-width: 100%;
+  }
+}
+
+#notifications-flash-toaster-container .da-toast.active {
+  transform: translateX(0);
+  opacity: 1;
+  animation: toastSlideIn 0.35s ease forwards;
+}
+
+/* ── Barre de progression (timeout) ─────────────────────────────── */
+#notifications-flash-toaster-container .da-toast::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--da-brand);
+  animation: toastTimeout 6.7s linear forwards;
+}
+
+#notifications-flash-toaster-container .da-toast:has(.da-toast__icon--success)::before  { background-color: #0A8A55; }
+#notifications-flash-toaster-container .da-toast:has(.da-toast__icon--danger)::before   { background-color: #C8323E; }
+#notifications-flash-toaster-container .da-toast:has(.da-toast__icon--warning)::before  { background-color: #C77F08; }
+#notifications-flash-toaster-container .da-toast:has(.da-toast__icon--info)::before     { background-color: #2563EB; }
+
+#notifications-flash-toaster-container .da-toast.paused::before {
+  animation-play-state: paused;
+}
+
+/* ── Corps (pousse le bouton close à droite) ─────────────────────── */
+.da-toast__body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Bouton fermer ───────────────────────────────────────────────── */
+.da-toast__close {
+  flex-shrink: 0;
+  align-self: flex-start;
+  color: var(--da-text-secondary);
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.da-toast__close:hover {
+  opacity: 1;
+}
+
+/* ── Keyframes ───────────────────────────────────────────────────── */
+@keyframes toastSlideIn {
+  0%   { transform: translateX(calc(100% + 40px)); }
+  60%  { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes toastTimeout {
+  to { width: 0; }
+}

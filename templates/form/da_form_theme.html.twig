@@ -1,0 +1,337 @@
+{#
+ # da_form_theme.html.twig — Form theme
+ #
+ #
+ # Enregistrement global : config/packages/twig.yaml → form_themes
+ # Utilisation par formulaire : {% form_theme form 'form/da_form_theme.html.twig' %}
+ #
+ # Correspondances :
+ #   TextType / EmailType / PasswordType … → da-input
+ #   TextareaType                          → da-input da-textarea
+ #   ChoiceType (collapsed)                → da-select
+ #   ChoiceType (expanded)                 → da-pill-checkbox (pill)
+ #   CheckboxType                          → da-toggle (toggle CSS-driven)
+ #   RangeType                             → da-slider
+ #   SubmitType                            → da-btn da-btn-primary
+ #   ButtonType / ResetType                → da-btn da-btn-secondary / ghost
+ #}
+
+{% use 'form_div_layout.html.twig' %}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   ROW WRAPPER
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim}) -%}
+    {{- parent() -}}
+{%- endblock -%}
+
+{# Ordre : label → widget → erreurs → aide (plus naturel que label → erreurs → widget) #}
+{%- block form_row_render -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_errors(form) -}}
+        {{- form_help(form) -}}
+    </div>
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   LABEL
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block form_label -%}
+    {%- if label is not same as(false) -%}
+        {# Si aucune classe n'est passée explicitement, on applique da-label par défaut #}
+        {%- set label_attr = label_attr|merge({class: label_attr.class|default('da-label')}) -%}
+    {%- endif -%}
+    {{- parent() -}}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   ATTRIBUTS WIDGET (injecte da-input sur les inputs simples)
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block widget_attributes -%}
+    {%- set _type = type|default('text') -%}
+    {%- if _type not in ['checkbox', 'radio', 'hidden', 'range', 'color'] -%}
+        {%- set _cls = attr.class|default('') -%}
+        {%- if 'da-input' not in _cls -%}
+            {%- set _cls = ('da-input ' ~ _cls)|trim -%}
+        {%- endif -%}
+        {%- if errors|length > 0 and 'da-input--error' not in _cls -%}
+            {%- set _cls = (_cls ~ ' da-input--error')|trim -%}
+        {%- endif -%}
+        {%- set attr = attr|merge({class: _cls}) -%}
+    {%- endif -%}
+    {{- parent() -}}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   TEXTAREA
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block textarea_widget -%}
+    {# da-input est ajouté par widget_attributes ; on ajoute da-textarea en plus #}
+    {%- set _cls = attr.class|default('') -%}
+    {%- if 'da-textarea' not in _cls -%}
+        {%- set _cls = (_cls ~ ' da-textarea')|trim -%}
+    {%- endif -%}
+    {%- set attr = attr|merge({class: _cls}) -%}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   SELECT (choice collapsed)
+   Rendu via Selectize (Choices.js) — ciblé automatiquement par .da-select.
+   Options passables via attr :
+   •  data-search="true"        → active la recherche sur select simple
+   •  data-max-items="3"        → limite d'items (multiple)
+   •  data-da-selectize="false" → désactive Selectize (select natif)
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block choice_widget_collapsed -%}
+    {%- set _cls = attr.class|default('') -%}
+    {%- if 'da-select' not in _cls -%}
+        {%- set _cls = ('da-select ' ~ _cls)|trim -%}
+    {%- endif -%}
+    {%- if errors|length > 0 and 'da-select--error' not in _cls -%}
+        {%- set _cls = (_cls ~ ' da-select--error')|trim -%}
+    {%- endif -%}
+    {%- set attr = attr|merge({class: _cls}) -%}
+    {{- parent() -}}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   RANGE → SLIDER
+   Calcule --da-slider-pct à partir de value/min/max.
+   oninput maintient le remplissage en temps réel.
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block range_widget -%}
+    {%- set type = 'range' -%}
+    {%- set required = false -%}
+    {%- set _min = attr.min|default(0) -%}
+    {%- set _max = attr.max|default(100) -%}
+    {%- set _val = value|default(50) -%}
+    {%- set _range = _max - _min -%}
+    {%- set _pct = _range > 0 ? ((_val - _min) / _range * 100)|round(1) ~ '%' : '0%' -%}
+    {%- set _sliderClass = attr.class|default('') -%}
+    {%- if 'da-slider' not in _sliderClass -%}
+        {%- set _sliderClass = ('da-slider ' ~ _sliderClass)|trim -%}
+    {%- endif -%}
+    {%- set attr = attr|merge({
+        class: _sliderClass,
+        style: ('--da-slider-pct:' ~ _pct ~ ';' ~ attr.style|default(''))|trim,
+        oninput: "this.style.setProperty('--da-slider-pct',((this.value-this.min)/(this.max-this.min)*100)+'%')"
+    }) -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   CHECKBOX → TOGGLE
+   Le rendu du widget est : input.da-toggle-input + span.da-toggle
+   Le wrapper <label class="da-toggle-field"> est posé dans checkbox_row.
+   L'état :checked est géré en CSS pur (pas de JS requis).
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block checkbox_widget -%}
+    <input type="checkbox" class="da-toggle-input" {{ block('widget_attributes') }}
+        {%- if value is defined %} value="{{ value }}"{% endif %}
+        {%- if checked %} checked="checked"{% endif %} />
+    <span class="da-toggle" aria-hidden="true"></span>
+{%- endblock -%}
+
+{%- block checkbox_row -%}
+    {%- set row_attr = row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim}) -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_errors(form) -}}
+        <div class="flex items-center gap-3">
+            <label class="da-toggle-field" for="{{ id }}">
+                {{- form_widget(form) -}}
+            </label>
+            {{- form_label(form, null, {label_attr: {class: 'da-body font-medium cursor-pointer'}}) -}}
+        </div>
+        {{- form_help(form) -}}
+    </div>
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   CHOIX EXPANDED → PILL CHECKBOXES / RADIOS
+   Rendu direct HTML pour rester compatible avec da-pill-checkbox.
+   Les attributs Stimulus des enfants ne sont pas propagés (limitation connue).
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block choice_widget_expanded -%}
+    {%- set _inputType = multiple ? 'checkbox' : 'radio' -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' flex flex-wrap gap-2')|trim}) -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            {%- set _childLabel = child.vars.label -%}
+            {%- if _childLabel is same as(false) or _childLabel is null -%}
+                {%- set _childLabel = child.vars.name|humanize -%}
+            {%- endif -%}
+            {%- if choice_translation_domain is not same as(false) and _childLabel -%}
+                {%- set _childLabel = _childLabel|trans(
+                    child.vars.label_translation_parameters|default({}),
+                    choice_translation_domain
+                ) -%}
+            {%- endif -%}
+            <label class="da-pill-checkbox" for="{{ child.vars.id }}">
+                <input type="{{ _inputType }}"
+                    id="{{ child.vars.id }}"
+                    name="{{ child.vars.full_name }}"
+                    value="{{ child.vars.value }}"
+                    {% if child.vars.checked %}checked="checked"{% endif %}
+                    {% if child.vars.disabled %}disabled{% endif %}
+                    {% if child.vars.required %}required{% endif %}
+                />
+                <span class="da-pill-checkbox__label">{{ _childLabel }}</span>
+            </label>
+        {% endfor -%}
+    </div>
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   ERREURS DE CHAMP
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <p class="da-field-error" id="{{ id ~ '_error' ~ loop.index }}">
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                {{ error.message }}
+            </p>
+        {%- endfor -%}
+    {%- endif -%}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   TEXTE D'AIDE
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block form_help -%}
+    {%- if help -%}
+        <p id="{{ id }}_help"
+            {%- with {attr: help_attr|merge({class: help_attr.class|default('da-field-help')})} -%}
+                {{ block('attributes') }}
+            {%- endwith -%}>
+            {{- block('form_help_content') -}}
+        </p>
+    {%- endif -%}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   DATERANGEPICKER
+   Rendu du widget DateRangePickerType : wrapper Stimulus + icône + input readonly.
+   Les options du picker (single_date, opens, drops…) sont passées en Stimulus values.
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block date_range_picker_widget -%}
+    {%- set stimulus_values = {
+        singleDate: single_date,
+        opens:      opens,
+        drops:      drops,
+        format:     format,
+        separator:  separator,
+    } -%}
+    {%- if min_date    -%}{%- set stimulus_values = stimulus_values|merge({minDate: min_date})   -%}{%- endif -%}
+    {%- if max_date    -%}{%- set stimulus_values = stimulus_values|merge({maxDate: max_date})   -%}{%- endif -%}
+    {%- if auto_apply  -%}{%- set stimulus_values = stimulus_values|merge({autoApply: true})     -%}{%- endif -%}
+    {%- if show_ranges -%}{%- set stimulus_values = stimulus_values|merge({showRanges: true})    -%}{%- endif -%}
+
+    {%- set _cls = 'da-input da-input--icon-left' -%}
+    {%- if attr.class is defined -%}{%- set _cls = (_cls ~ ' ' ~ attr.class)|trim -%}{%- endif -%}
+    {%- if errors|length > 0 -%}{%- set _cls = (_cls ~ ' da-input--error')|trim -%}{%- endif -%}
+    {%- set attr = attr|merge({class: _cls, readonly: 'readonly', autocomplete: 'off'}) -%}
+
+    <div {{ stimulus_controller('components/twig/form-field-datepicker', stimulus_values) }}>
+        <div class="da-input-wrapper">
+            <i class="fa-regular {{ single_date ? 'fa-calendar' : 'fa-calendar-days' }} da-input-icon da-input-icon--left"
+               aria-hidden="true"></i>
+            <input type="text" {{ block('widget_attributes') }}>
+        </div>
+    </div>
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   BOUTONS
+   La classe par défaut peut toujours être surchargée via attr.class.
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block submit_widget -%}
+    {%- set type = 'submit' -%}
+    {%- if not attr.class is defined -%}
+        {%- set attr = attr|merge({class: 'da-btn da-btn-primary'}) -%}
+    {%- endif -%}
+    {{- block('button_widget') -}}
+{%- endblock -%}
+
+{%- block reset_widget -%}
+    {%- set type = 'reset' -%}
+    {%- if not attr.class is defined -%}
+        {%- set attr = attr|merge({class: 'da-btn da-btn-ghost'}) -%}
+    {%- endif -%}
+    {{- block('button_widget') -}}
+{%- endblock -%}
+
+{%- block button_widget -%}
+    {%- if not attr.class is defined -%}
+        {%- set attr = attr|merge({class: 'da-btn da-btn-secondary'}) -%}
+    {%- endif -%}
+    {{- parent() -}}
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   RATING
+   Rendu de RatingType : input number caché + initialisation par RatingManager.
+   Le composant Rating JS remplace l'input par une interface étoilée.
+
+   Options passables via le FormType :
+   •  number          → nombre d'étoiles (défaut : 5)      data-rating-number
+   •  show_score      → affiche "3/5" sous les étoiles      data-showscore
+   •  rating_readonly → lecture seule, pas de clic          readonly
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block rating_widget -%}
+    <input
+        type="number"
+        id="{{ id }}"
+        name="{{ full_name }}"
+        {% if value is not empty %}value="{{ value }}"{% endif %}
+        min="0"
+        max="{{ number }}"
+        step="1"
+        data-rating
+        data-rating-number="{{ number }}"
+        {%- if show_score %} data-showscore="true"{% endif %}
+        {%- if rating_readonly %} readonly{% endif %}
+        {%- if required %} required{% endif %}
+        {%- if disabled %} disabled{% endif %}
+        style="display:none"
+    >
+{%- endblock -%}
+
+{# ══════════════════════════════════════════════════════════════════════════
+   FILE DROPZONE
+   Rendu de FileDropzoneType : div wrapper initialisé par FileFieldManager.
+   Les types MIME acceptés sont hérités de FileAcceptExtension (contrainte File).
+
+   Options passables via le FormType :
+   •  multiple → autorise plusieurs fichiers     data-multiple="multiple"
+   •  limit    → nombre max de fichiers          data-limit
+   Les MIME acceptés viennent de attr.accept (injecté par FileAcceptExtension).
+   ══════════════════════════════════════════════════════════════════════════ #}
+
+{%- block file_dropzone_widget -%}
+    <div
+        class="file-dropzone"
+        data-file-dropzone
+        data-name="{{ full_name }}{{ multiple ? '[]' : '' }}"
+        {%- if attr.accept is defined %} data-accept="{{ attr.accept }}"{% endif %}
+        {%- if multiple %} data-multiple="multiple"{% endif %}
+        data-limit="{{ limit }}"
+    ></div>
+{%- endblock -%}

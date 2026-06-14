@@ -1,0 +1,20 @@
+# Messages de validation des entités - Français
+# Structure: {entity}.{field}.{constraint}
+
+# User Entity
+user:
+  email:
+    not_blank: "Veuillez saisir votre adresse email"
+  password:
+    not_blank: "Le mot de passe est obligatoire"
+    regex: "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre"
+    min_length: "Le mot de passe doit contenir au moins {{ limit }} caractères"
+    max_length: "Le mot de passe ne peut pas dépasser {{ limit }} caractères"
+    not_compromised: "Ce mot de passe a été compromis. Veuillez en choisir un autre."
+
+# ChangePasswordFormType
+change_password:
+  current_password:
+    not_blank: "Veuillez saisir votre mot de passe actuel"
+  plain_password:
+    mismatch: "Les mots de passe ne correspondent pas"

@@ -1,0 +1,73 @@
+{%- set table_class = 'table-view' ~ (class ? ' ' ~ class : '') -%}
+
+{%- set stimulus_values = {} -%}
+{%- if url      -%}{%- set stimulus_values = stimulus_values|merge({url: url})             -%}{%- endif -%}
+{%- if title    -%}{%- set stimulus_values = stimulus_values|merge({title: title})         -%}{%- endif -%}
+{%- if newUrl   -%}{%- set stimulus_values = stimulus_values|merge({newUrl: newUrl})       -%}{%- endif -%}
+{%- if newTitle -%}{%- set stimulus_values = stimulus_values|merge({newTitle: newTitle})   -%}{%- endif -%}
+{%- set stimulus_values = stimulus_values|merge({header: header}) -%}
+{%- if not footer     -%}{%- set stimulus_values = stimulus_values|merge({footer: false})     -%}{%- endif -%}
+{%- if not responsive -%}{%- set stimulus_values = stimulus_values|merge({responsive: false}) -%}{%- endif -%}
+
+{%- if data is null -%}
+<div {{ stimulus_controller('components/twig/table', stimulus_values) }}>
+    <table class="{{ table_class }}"{% if id %} id="{{ id }}"{% endif %}>
+        <thead><tr></tr></thead>
+        <tbody></tbody>
+    </table>
+</div>
+{%- else -%}
+<div {{ stimulus_controller('components/twig/table', stimulus_values) }}>
+    <table class="{{ table_class }}"
+        {%- if id %} id="{{ id }}"{% endif %}
+        {%- if not header %} data-header="0"{% endif %}
+        {%- if columnOrders is not empty %} data-order='{{ columnOrders|json_encode|raw }}'{% endif %}
+    >
+
+        <colgroup>
+            {%- for col in columns -%}
+            <col
+                {%- if col.type is defined %} data-type="{{ col.type }}"{% endif %}
+                {%- if col.orderable is defined and col.orderable == false %} data-orderable="false"{% endif %}
+                {%- if col.visible   is defined and col.visible   == false %} data-visible="false"{% endif %}
+                {%- if col.responsivePriority is defined %} data-priority="{{ col.responsivePriority }}"{% endif %}
+            />
+            {%- endfor -%}
+        </colgroup>
+
+        <thead>
+            <tr>
+                {%- for col in columns -%}
+                {%- set th_class = col.class|default('')|trim -%}
+                <th{%- if th_class %} class="{{ th_class }}"{% endif %}>
+                    {{- col.title|default('')|raw -}}
+                    {%- if col.tooltip is defined and col.tooltip -%}
+                    <i class="far fa-circle-question tooltip" title="{{ col.tooltip|e('html_attr') }}"></i>
+                    {%- endif -%}
+                </th>
+                {%- endfor -%}
+            </tr>
+        </thead>
+
+        <tbody>
+            {%- for row in rows -%}
+            <tr>
+                {%- for col in columns -%}
+                {%- set field_key = col.data['_'] -%}
+                {%- if field_key not in row|keys -%}
+                <td></td>
+                {%- else -%}
+                {%- set td_class = ((col.class|default('')) ~ ' ' ~ (col.data.class is defined ? row[col.data.class]|default('') : ''))|trim -%}
+                {%- set sort_val = col.data.sort is defined ? row[col.data.sort]|default('') : null -%}
+                <td{%- if td_class %} class="{{ td_class }}"{% endif %}{%- if sort_val is not null %} data-order="{{ sort_val }}"{% endif %}>
+                    {{- row[field_key]|raw -}}
+                </td>
+                {%- endif -%}
+                {%- endfor -%}
+            </tr>
+            {%- endfor -%}
+        </tbody>
+
+    </table>
+</div>
+{%- endif -%}

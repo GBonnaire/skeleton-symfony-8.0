@@ -1,0 +1,18 @@
+{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
+
+{% block error_icon %}
+    <div class="text-8xl mb-6" style="color: var(--da-border-strong);">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+{% endblock %}
+
+{% block error_title %}
+    <h1 class="text-2xl font-bold text-gray-800 mb-3">Erreur interne du serveur</h1>
+{% endblock %}
+
+{% block error_message %}
+    <p class="text-gray-500 mb-8">
+        Une erreur est survenue de notre côté. Notre équipe a été prévenue.<br>
+        Veuillez réessayer dans quelques instants.
+    </p>
+{% endblock %}

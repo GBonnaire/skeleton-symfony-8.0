@@ -1,0 +1,778 @@
+@import "tailwindcss";
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import "./theme.css";
+
+@source not "../../public";
+
+/* Design system — config centrale */
+
+/* Components */
+/* @import "./components/button.css"; */
+/* @import "./components/card.css"; */
+/* @import "./components/form.css"; */
+/* @import "./components/badge.css"; */
+/* @import "./components/toast.css"; */
+
+/* Pages — décommentées au fur et à mesure */
+/* @import "./pages/home.css"; */
+/* @import "./pages/search.css"; */
+/* @import "./pages/dashboard.css"; */
+
+body {
+    font-size: var(--da-text-body);
+    line-height: var(--da-lh-body);
+    color: var(--da-text-primary);
+    background-color: var(--da-canvas);
+    font-feature-settings: 'ss01', 'cv11';
+}
+
+/* ── 4. Échelle typographique ────────────────────────────────── */
+.da-display {
+    font-size: var(--da-text-display);
+    line-height: var(--da-lh-display);
+    font-weight: 600;
+    letter-spacing: var(--da-tracking-display);
+}
+
+.da-h1 {
+    font-size: var(--da-text-h1);
+    line-height: var(--da-lh-h1);
+    font-weight: 600;
+    letter-spacing: var(--da-tracking-h1);
+}
+
+.da-h2 {
+    font-size: var(--da-text-h2);
+    line-height: var(--da-lh-h2);
+    font-weight: 600;
+    letter-spacing: var(--da-tracking-h2);
+}
+
+.da-h3 {
+    font-size: var(--da-text-h3);
+    line-height: var(--da-lh-h3);
+    font-weight: 600;
+    letter-spacing: var(--da-tracking-h3);
+}
+
+.da-body-lg {
+    font-size: var(--da-text-body-lg);
+    line-height: var(--da-lh-body);
+}
+
+.da-body {
+    font-size: var(--da-text-body);
+    line-height: var(--da-lh-body);
+}
+
+.da-caption {
+    font-size: var(--da-text-caption);
+    line-height: var(--da-lh-caption);
+    color: var(--da-text-secondary);
+}
+
+.da-overline {
+    font-size: var(--da-text-over);
+    font-weight: 600;
+    letter-spacing: var(--da-tracking-over);
+    text-transform: uppercase;
+    color: var(--da-text-secondary);
+}
+
+/* Mono : horaires, distances, métriques, codes */
+.da-mono {
+    font-family: var(--font-mono);
+    font-feature-settings: 'zero', 'tnum';
+}
+
+/* Kicker (label de section) */
+.da-kicker {
+    font-size: var(--da-text-over);
+    font-weight: 600;
+    letter-spacing: var(--da-tracking-over);
+    text-transform: uppercase;
+    color: var(--da-brand);
+}
+
+/* ── 5. Focus ring global ────────────────────────────────────── */
+.da-focus-ring:focus {
+    outline: none;
+    box-shadow: var(--da-focus-ring);
+    border-color: var(--da-focus-border);
+}
+
+/* ── 6. Séparateur fin (hairline) ────────────────────────────── */
+.da-hair {
+    border-color: var(--da-border);
+}
+
+/* ── 7. Boutons ──────────────────────────────────────────────── */
+
+/* Base commune */
+.da-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: var(--da-btn-height);
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: var(--da-text-body);
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.da-btn:disabled,
+.da-btn[aria-disabled="true"] {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Tailles */
+.da-btn-sm   { height: var(--da-btn-height-sm);   padding: 0 12px; font-size: var(--da-text-caption); border-radius: 6px; }
+.da-btn-lg   { height: var(--da-btn-height-lg);   padding: 0 20px; font-size: var(--da-text-body-lg); }
+.da-btn-hero { height: var(--da-btn-height-hero);  padding: 0 24px; font-size: var(--da-text-body-lg); border-radius: 10px; }
+.da-btn-icon { width: var(--da-btn-height); padding: 0; }
+.da-btn-icon.da-btn-sm { width: var(--da-btn-height-sm); }
+.da-btn-icon.da-btn-lg { width: var(--da-btn-height-lg); }
+
+/* Primary */
+.da-btn-primary {
+    background-color: #0F558A;
+    color: #FFFFFF;
+}
+.da-btn-primary:hover  { background-color: #0A4470; }
+.da-btn-primary:active { background-color: #073354; }
+.da-btn-primary:disabled { background-color: #93BCDD; color: rgba(10,68,112,0.5); }
+
+/* Secondary */
+.da-btn-secondary {
+    background-color: #EEF2F3;
+    color: #0F1417;
+}
+.da-btn-secondary:hover  { background-color: #DFE5E7; }
+.da-btn-secondary:active { background-color: #C5CDD1; }
+.da-btn-secondary:disabled { background-color: #EEF2F3; color: #98A2A8; }
+
+/* Outline */
+.da-btn-outline {
+    background-color: #FFFFFF;
+    color: #0F1417;
+    box-shadow: inset 0 0 0 1px #DFE5E7;
+}
+.da-btn-outline:hover  { background-color: #F7FAFA; }
+.da-btn-outline:active { background-color: #EEF2F3; box-shadow: inset 0 0 0 1px #C5CDD1; }
+.da-btn-outline:disabled { color: #C5CDD1; box-shadow: inset 0 0 0 1px #EEF2F3; }
+
+/* Ghost */
+.da-btn-ghost {
+    background-color: transparent;
+    color: #0A4470;
+}
+.da-btn-ghost:hover  { background-color: #E8F2FA; }
+.da-btn-ghost:active { background-color: #C8DEF0; }
+.da-btn-ghost:disabled { color: #C5CDD1; }
+
+/* Danger */
+.da-btn-danger {
+    background-color: #FFFFFF;
+    color: #C8323E;
+    box-shadow: inset 0 0 0 1px rgba(232, 72, 85, 0.30);
+}
+.da-btn-danger:hover  { background-color: #FDECEE; }
+.da-btn-danger:active { background-color: #FDECEE; box-shadow: inset 0 0 0 1px rgba(232, 72, 85, 0.50); }
+.da-btn-danger:disabled { color: rgba(200,50,62,0.40); box-shadow: inset 0 0 0 1px rgba(232,72,85,0.20); }
+
+/* ── 8. Champs de formulaire ─────────────────────────────────── */
+.da-label {
+    display: block;
+    font-size: var(--da-text-caption);
+    font-weight: 500;
+    color: var(--da-text-secondary);
+    margin-bottom: 6px;
+}
+
+.da-input {
+    display: block;
+    width: 100%;
+    height: var(--da-input-height);
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid #DFE5E7;
+    background-color: #FFFFFF;
+    font-size: var(--da-text-body);
+    font-family: inherit;
+    color: var(--da-text-primary);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.da-input::placeholder { color: #98A2A8; }
+
+.da-input:focus {
+    outline: none;
+    border-color: var(--da-focus-border);
+    box-shadow: var(--da-focus-ring);
+}
+
+.da-input:disabled {
+    background-color: #F7FAFA;
+    border-color: #EEF2F3;
+    color: #C5CDD1;
+    cursor: not-allowed;
+}
+
+.da-input--error {
+    border-color: #E84855;
+}
+
+.da-input--icon-left  { padding-left: 40px; }
+.da-input--icon-right { padding-right: 40px; }
+
+.da-input-wrapper {
+    position: relative;
+}
+
+.da-input-wrapper .da-input-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #98A2A8;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.da-input-wrapper .da-input-icon--left  { left: 14px; }
+.da-input-wrapper .da-input-icon--right { right: 14px; }
+
+.da-field-error {
+    margin-top: 6px;
+    font-size: var(--da-text-caption);
+    color: #C8323E;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.da-select {
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: var(--da-input-height);
+    padding: 0 40px 0 14px;
+    border-radius: 8px;
+    border: 1px solid #DFE5E7;
+    background-color: #FFFFFF;
+    font-size: var(--da-text-body);
+    font-family: inherit;
+    color: var(--da-text-primary);
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.da-select:focus {
+    outline: none;
+    border-color: var(--da-focus-border);
+    box-shadow: var(--da-focus-ring);
+}
+
+/* ── 9. Toggle ───────────────────────────────────────────────── */
+.da-toggle {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    background-color: #DFE5E7;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.da-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: #FFFFFF;
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+}
+
+.da-toggle--on {
+    background-color: #0F558A;
+}
+
+.da-toggle--on::after {
+    transform: translateX(16px);
+}
+
+/* Checkbox pill (plages horaires) */
+.da-pill-checkbox {
+    display: block;
+    cursor: pointer;
+}
+
+.da-pill-checkbox input[type="checkbox"],
+.da-pill-checkbox input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+}
+
+.da-pill-checkbox__label {
+    display: block;
+    text-align: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px #DFE5E7;
+    font-size: var(--da-text-body);
+    color: var(--da-text-primary);
+    transition: all 0.15s ease;
+}
+
+.da-pill-checkbox input:checked + .da-pill-checkbox__label {
+    box-shadow: inset 0 0 0 1px #0F558A;
+    background-color: #E8F2FA;
+    color: #0A4470;
+    font-weight: 500;
+}
+
+/* Segmented control */
+.da-segmented {
+    display: inline-flex;
+    align-items: center;
+    background-color: #EEF2F3;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.da-segmented__item {
+    padding: 6px 14px;
+    font-size: var(--da-text-body);
+    font-weight: 500;
+    border-radius: 8px;
+    color: #4A555C;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+.da-segmented__item--active {
+    background-color: #FFFFFF;
+    color: #0F1417;
+    box-shadow: var(--da-shadow-card);
+}
+
+/* ── 10. Cartes ──────────────────────────────────────────────── */
+.da-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.da-card--outline {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px #EEF2F3;
+}
+
+.da-card--hoverable {
+    transition: box-shadow 0.15s ease;
+}
+
+.da-card--hoverable:hover {
+    box-shadow: var(--shadow-pop);
+}
+
+/* Carte praticien */
+.da-card-practitioner {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px #EEF2F3;
+    padding: 20px;
+    transition: box-shadow 0.15s ease;
+}
+
+.da-card-practitioner:hover {
+    box-shadow: var(--shadow-pop);
+}
+
+/* Carte alerte active */
+.da-card-alert {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: var(--shadow-card);
+    box-shadow: inset 0 0 0 1px #EEF2F3;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Carte créneau */
+.da-card-slot {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px #EEF2F3;
+    padding: 20px;
+}
+
+/* ── 11. Badges & Tags ───────────────────────────────────────── */
+.da-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: var(--da-text-caption);
+    font-weight: 500;
+    line-height: 1;
+}
+
+.da-badge--success { background-color: #E6F7EE; color: #0A8A55; }
+.da-badge--warning { background-color: #FFF6E3; color: #C77F08; }
+.da-badge--danger  { background-color: #FDECEE; color: #C8323E; }
+.da-badge--info    { background-color: #EAF1FE; color: #2563EB; }
+.da-badge--neutral { background-color: #EEF2F3; color: #2F383E; }
+.da-badge--brand   { background-color: #E8F2FA; color: #0A4470; }
+.da-badge--alert   { background-color: #FF6B5B; color: #FFFFFF; }
+.da-badge--outline { box-shadow: inset 0 0 0 1px #DFE5E7; color: #2F383E; }
+
+/* Compteur de notification */
+.da-counter {
+    display: inline-grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    background-color: #FF6B5B;
+    color: #FFFFFF;
+}
+
+.da-counter--dark {
+    background-color: #0F1417;
+}
+
+/* ── 12. Toast / Notification ────────────────────────────────── */
+.da-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: var(--shadow-float);
+    box-shadow: inset 0 0 0 1px #EEF2F3, var(--shadow-float);
+    padding: 16px;
+    max-width: 360px;
+}
+
+.da-toast__icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.da-toast__icon--success { background-color: #E6F7EE; color: #0A8A55; }
+.da-toast__icon--danger  { background-color: #FDECEE; color: #C8323E; }
+.da-toast__icon--warning { background-color: #FFF6E3; color: #C77F08; }
+.da-toast__icon--info    { background-color: #EAF1FE; color: #2563EB; }
+
+.da-toast__title {
+    font-size: var(--da-text-body);
+    font-weight: 500;
+    color: var(--da-text-primary);
+}
+
+.da-toast__desc {
+    font-size: var(--da-text-caption);
+    color: var(--da-text-secondary);
+    margin-top: 2px;
+}
+
+/* ── 13. Navigation ──────────────────────────────────────────── */
+.da-navbar {
+    height: var(--da-nav-height);
+    background-color: rgba(247, 250, 250, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #EEF2F3;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.da-nav-link {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: var(--da-text-body);
+    color: #4A555C;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.da-nav-link:hover { color: #0F1417; background-color: #EEF2F3; }
+
+.da-nav-link--active {
+    font-weight: 600;
+    color: #0F1417;
+    background-color: #EEF2F3;
+}
+
+/* Bottom nav mobile */
+.da-bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #FFFFFF;
+    border-top: 1px solid #EEF2F3;
+}
+
+.da-bottom-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #98A2A8;
+    border: none;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: var(--da-touch-min);
+    position: relative;
+}
+
+.da-bottom-nav__item--active {
+    color: #0F558A;
+    font-weight: 600;
+}
+
+/* ── 14. Logo mark ───────────────────────────────────────────── */
+.da-logomark {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background-color: #0F558A;
+    display: grid;
+    place-items: center;
+    color: #FFFFFF;
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.da-logomark__dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background-color: #FF6B5B;
+    box-shadow: 0 0 0 2px #F7FAFA;
+}
+
+/* ── 15. Indicateur de veille (pulse) ────────────────────────── */
+.da-pulse {
+    position: relative;
+    display: inline-flex;
+    width: 8px;
+    height: 8px;
+}
+
+.da-pulse__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background-color: #145E92;
+    opacity: 0.75;
+    animation: da-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.da-pulse__dot {
+    position: relative;
+    display: inline-flex;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: #145E92;
+}
+
+@keyframes da-ping {
+    75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── 16. Avatar praticien ────────────────────────────────────── */
+.da-avatar {
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    background: linear-gradient(135deg, #93BCDD 0%, #2C77AB 100%);
+    color: #051F36;
+    flex-shrink: 0;
+}
+
+.da-avatar--sm { width: 32px; height: 32px; font-size: 12px; }
+.da-avatar--md { width: 48px; height: 48px; font-size: 16px; }
+.da-avatar--lg { width: 64px; height: 64px; font-size: 20px; }
+
+/* ── 17. Slider ──────────────────────────────────────────────── */
+.da-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+        to right,
+        #0F558A 0%,
+        #0F558A var(--da-slider-pct, 33%),
+        #EEF2F3 var(--da-slider-pct, 33%),
+        #EEF2F3 100%
+    );
+    cursor: pointer;
+}
+
+.da-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #FFFFFF;
+    border: 2px solid #0F558A;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+}
+
+.da-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #FFFFFF;
+    border: 2px solid #0F558A;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+}
+
+/* ── 18. Conteneur de page ───────────────────────────────────── */
+.da-container {
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: 32px;
+}
+
+@media (max-width: 640px) {
+    .da-container { padding-inline: 16px; }
+}
+
+/* ── 19. Form Theme ──────────────────────────────────────────── */
+
+/* Champ requis : astérisque rouge après le label */
+.da-label.required::after {
+    content: ' *';
+    color: #E84855;
+    font-size: var(--da-text-over);
+}
+
+/* Select : flèche chevron */
+.da-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2398A2A8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+.da-select:disabled {
+    background-color: #F7FAFA;
+    border-color: #EEF2F3;
+    color: #C5CDD1;
+    cursor: not-allowed;
+}
+
+.da-select--error {
+    border-color: #E84855;
+}
+
+/* Textarea : hauteur auto, resize vertical */
+.da-textarea {
+    height: auto !important;
+    min-height: 110px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    resize: vertical;
+    line-height: var(--da-lh-body);
+}
+
+/* Texte d'aide sous les champs */
+.da-field-help {
+    margin-top: 6px;
+    font-size: var(--da-text-caption);
+    color: var(--da-text-muted);
+    line-height: var(--da-lh-caption);
+}
+
+/* ── Toggle piloté par checkbox (:checked en CSS pur) ──────── */
+
+/* Le <label class="da-toggle-field"> sert de wrapper cliquable */
+.da-toggle-field {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* L'input est visuellement masqué mais accessible */
+.da-toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* État actif : input:checked → le span.da-toggle adjacent devient bleu */
+.da-toggle-input:checked + .da-toggle {
+    background-color: #0F558A;
+}
+
+.da-toggle-input:checked + .da-toggle::after {
+    transform: translateX(16px);
+}
+
+/* Focus visible : anneau de focus sur le toggle */
+.da-toggle-input:focus-visible + .da-toggle {
+    outline: none;
+    box-shadow: var(--da-focus-ring);
+}
+
+/* Désactivé */
+.da-toggle-input:disabled + .da-toggle {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.da-toggle-field:has(.da-toggle-input:disabled) {
+    cursor: not-allowed;
+}

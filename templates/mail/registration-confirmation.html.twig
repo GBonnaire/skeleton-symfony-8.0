@@ -1,0 +1,19 @@
+{% extends "mail/base.html.twig" %}
+
+{% block title %}
+    Inscription confirmée
+{% endblock %}
+
+{% block content %}
+    {% if account_email is defined and account_email is not empty and account_password is defined and account_password is not empty %}
+        <p>
+            Identifiant : <b>{{ account_email }}</b> <br>
+            Mot de passe : <b><code>{{ account_password }}</code></b> <br>
+        </p>
+    {% endif %}
+{% endblock %}
+{% block additional_info %}
+    <p>
+        Si vous n'êtes pas à l'origine de la création de ce compte, n'activez pas ce dernier et ignorez ce message.
+    </p>
+{% endblock %}

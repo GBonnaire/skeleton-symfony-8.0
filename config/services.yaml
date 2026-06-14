@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
+
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+# See also https://symfony.com/doc/current/service_container/import.html
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    app:
+        name: 'MyAppName'
+        description: 'Short description for my app'
+        version: '1.0.0'
+    mailer:
+        templateFolder: mail/
+        fromEmail: '%env(MAILER_FROM)%'
+        fromName: '%env(MAILER_FROM_NAME)%'
+
+    mail_theme:
+        primary:       '#0F558A'   # azur-600 — couleur de marque
+        primary_dark:  '#0A4470'   # azur-700 — dégradé / hover
+        header_text:   '#ffffff'
+        accent:        '#FF6B5B'   # coral-500 — bouton secondaire warning
+        text:          '#333333'
+        text_muted:    '#6c757d'
+        background:    '#f8f9fa'
+        surface:       '#ffffff'
+        border:        '#e9ecef'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+
+    App\Service\JwtService:
+        arguments:
+            $secret: '%kernel.secret%'
+            $ttl: 3600
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones

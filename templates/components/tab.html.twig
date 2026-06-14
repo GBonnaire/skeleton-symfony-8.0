@@ -1,0 +1,33 @@
+{%- set _active = activeTab is not empty ? activeTab : (tabs is not empty ? (tabs|first).id : '') -%}
+
+<div
+    {% if id %}id="{{ id }}"{% endif %}
+    {{ stimulus_controller('components/twig/tab') }}
+>
+    <div class="border-b border-ink-200">
+        <nav
+            class="tab da-tab__nav -mb-px flex space-x-8 overflow-x-auto"
+            role="tablist"
+            aria-label="Navigation par onglets"
+        >
+            {% for tab in tabs %}
+            <button
+                class="da-tab__item group inline-flex items-center gap-x-2 whitespace-nowrap select-none cursor-pointer border-b-2 border-transparent px-1 py-4 text-sm font-medium text-ink-500 hover:border-ink-300 hover:text-ink-700 transition-colors duration-150{% if tab.id == _active %} active{% endif %}"
+                data-tab-target="{{ tab.id }}"
+                role="tab"
+                type="button"
+                aria-selected="{{ tab.id == _active ? 'true' : 'false' }}"
+                tabindex="{{ tab.id == _active ? '0' : '-1' }}"
+            >
+                {%- if tab.icon is defined and tab.icon -%}
+                <i class="fa-solid {{ tab.icon }} shrink-0 text-[1.25rem] text-ink-400 group-hover:text-ink-500 transition-colors"></i>
+                {%- endif -%}
+                {{- tab.label -}}
+            </button>
+            {% endfor %}
+        </nav>
+    </div>
+    <div class="pt-5">
+        {% block content %}{% endblock %}
+    </div>
+</div>

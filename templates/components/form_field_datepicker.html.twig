@@ -1,0 +1,47 @@
+{%- set stimulus_values = {
+    singleDate: singleDate,
+    opens:      opens,
+    drops:      drops,
+    format:     format,
+    separator:  separator,
+} -%}
+{%- if minDate    -%}{%- set stimulus_values = stimulus_values|merge({minDate: minDate})   -%}{%- endif -%}
+{%- if maxDate    -%}{%- set stimulus_values = stimulus_values|merge({maxDate: maxDate})   -%}{%- endif -%}
+{%- if autoApply  -%}{%- set stimulus_values = stimulus_values|merge({autoApply: true})    -%}{%- endif -%}
+{%- if showRanges -%}{%- set stimulus_values = stimulus_values|merge({showRanges: true})   -%}{%- endif -%}
+
+<div class="form-group" {{ stimulus_controller('components/twig/form-field-datepicker', stimulus_values) }}>
+
+    {%- if label %}
+    <label class="da-label{% if required %} required{% endif %}" for="{{ id }}">
+        {{- label -}}
+    </label>
+    {%- endif %}
+
+    <div class="da-input-wrapper">
+        <i class="fa-regular {{ singleDate ? 'fa-calendar' : 'fa-calendar-days' }} da-input-icon da-input-icon--left"
+           aria-hidden="true"></i>
+        <input
+            id="{{ id }}"
+            {%- if name %} name="{{ name }}"{% endif %}
+            type="text"
+            class="da-input da-input--icon-left{% if error %} da-input--error{% endif %}"
+            {%- if placeholder %} placeholder="{{ placeholder }}"{% endif %}
+            {%- if value %} value="{{ value }}"{% endif %}
+            {%- if required %} required{% endif %}
+            {%- if disabled %} disabled{% endif %}
+            autocomplete="off"
+            readonly
+        >
+    </div>
+
+    {%- if error %}
+    <p class="da-field-error" role="alert">
+        <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+        {{- error -}}
+    </p>
+    {%- elseif help %}
+    <p class="da-field-help">{{ help }}</p>
+    {%- endif %}
+
+</div>

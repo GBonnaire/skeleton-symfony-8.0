@@ -1,0 +1,12 @@
+/* component/twig/form — styles du composant <twig:Form> */
+
+/* Zone de boutons : bouton soumit + boutons additionnels alignés */
+.twig-form .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.twig-form .controls > * {
+    flex: 1 1 auto;
+}

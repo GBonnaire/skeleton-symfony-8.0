@@ -1,0 +1,301 @@
+/**
+ * Form Collections Styles
+ *
+ * Styles pour les formulaires imbriqués (collections) Symfony
+ * Intégration avec Basecoat CSS
+ */
+
+/* ========================================================================
+   Container de collection
+   ======================================================================== */
+
+.collection-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ========================================================================
+   Item de collection
+   ======================================================================== */
+
+.collection-item {
+    position: relative;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.collection-item:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-color: hsl(var(--primary) / 0.3);
+}
+
+/* État lors de l'ajout (animation) */
+.collection-item.adding {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================================================
+   Header de l'item
+   ======================================================================== */
+
+.collection-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: hsl(var(--muted) / 0.3);
+    border-bottom: 1px solid hsl(var(--border));
+}
+
+.collection-item-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+}
+
+.collection-item-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.collection-item-label {
+    color: hsl(var(--foreground));
+}
+
+.collection-item-delete {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Responsive : masquer le texte du bouton sur mobile */
+@media (max-width: 640px) {
+    .collection-item-delete span {
+        display: none;
+    }
+
+    .collection-item-delete {
+        padding: 0.5rem;
+        aspect-ratio: 1;
+    }
+}
+
+/* ========================================================================
+   Body de l'item
+   ======================================================================== */
+
+.collection-item-body {
+    padding: 1.5rem;
+}
+
+/* Organisation des champs en grille */
+.collection-item-body > .grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+/* Grille responsive par défaut */
+@media (min-width: 768px) {
+    .collection-item-body > .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Champs pleine largeur */
+.collection-item-body > .grid > .full-width,
+.collection-item-body > .grid > [data-full-width] {
+    grid-column: 1 / -1;
+}
+
+/* ========================================================================
+   Bouton "Add"
+   ======================================================================== */
+
+.collection-add-button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .collection-add-button {
+        width: auto;
+        min-width: 200px;
+    }
+}
+
+/* ========================================================================
+   État vide
+   ======================================================================== */
+
+.collection-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background: hsl(var(--muted) / 0.2);
+    border: 2px dashed hsl(var(--border));
+    border-radius: 0.75rem;
+}
+
+.collection-empty-icon {
+    width: 3rem;
+    height: 3rem;
+    color: hsl(var(--muted-foreground));
+}
+
+.collection-empty-text {
+    font-size: 0.875rem;
+    color: hsl(var(--muted-foreground));
+}
+
+/* ========================================================================
+   Variantes
+   ======================================================================== */
+
+/* Variante compacte */
+.collection-item.compact .collection-item-header {
+    padding: 0.75rem 1rem;
+}
+
+.collection-item.compact .collection-item-body {
+    padding: 1rem;
+}
+
+.collection-item.compact .collection-item-title {
+    font-size: 1rem;
+}
+
+/* Variante inline (pour petites collections) */
+.collection-inline .collection-item {
+    margin-bottom: 0.75rem;
+}
+
+.collection-inline .collection-item-header {
+    padding: 0.5rem 1rem;
+}
+
+.collection-inline .collection-item-body {
+    padding: 1rem;
+}
+
+/* ========================================================================
+   Drag & Drop (préparation pour future implémentation)
+   ======================================================================== */
+
+.collection-item.dragging {
+    opacity: 0.5;
+    cursor: move;
+}
+
+.collection-item.drag-over {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.05);
+}
+
+/* ========================================================================
+   Dark Mode Support
+   ======================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    .collection-item {
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+    }
+
+    .collection-item:hover {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    }
+}
+
+/* ========================================================================
+   Animations d'entrée/sortie
+   ======================================================================== */
+
+.collection-item-enter {
+    animation: collectionItemEnter 0.3s ease-out;
+}
+
+@keyframes collectionItemEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.collection-item-exit {
+    animation: collectionItemExit 0.3s ease-in;
+}
+
+@keyframes collectionItemExit {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px) scale(0.95);
+    }
+}
+
+/* ========================================================================
+   Utilitaires
+   ======================================================================== */
+
+/* Séparateur entre sections dans un item */
+.collection-item-separator {
+    margin: 1.5rem 0;
+    border-top: 1px solid hsl(var(--border));
+}
+
+/* Section avec titre dans un item */
+.collection-item-section {
+    margin-bottom: 1.5rem;
+}
+
+.collection-item-section:last-child {
+    margin-bottom: 0;
+}
+
+.collection-item-section-title {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}

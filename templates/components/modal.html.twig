@@ -1,0 +1,17 @@
+{%- set stimulus_values = {showOnLoad: showOnLoad, canClose: canClose, backdrop: backdrop} -%}
+{%- if title        -%}{%- set stimulus_values = stimulus_values|merge({title: title})               -%}{%- endif -%}
+{%- if icon         -%}{%- set stimulus_values = stimulus_values|merge({icon: icon})                 -%}{%- endif -%}
+{%- if iconVariant  -%}{%- set stimulus_values = stimulus_values|merge({iconVariant: iconVariant})   -%}{%- endif -%}
+{%- if iconSize     -%}{%- set stimulus_values = stimulus_values|merge({iconSize: iconSize})         -%}{%- endif -%}
+{%- if iconPosition -%}{%- set stimulus_values = stimulus_values|merge({iconPosition: iconPosition}) -%}{%- endif -%}
+{%- if width        -%}{%- set stimulus_values = stimulus_values|merge({width: width})               -%}{%- endif -%}
+{%- if height       -%}{%- set stimulus_values = stimulus_values|merge({height: height})             -%}{%- endif -%}
+
+<div
+    {% if id %}id="{{ id }}"{% endif %}
+    style="display:none"
+    {{ stimulus_controller('components/twig/modal', stimulus_values) }}
+>
+    <template data-modal-target="content">{% block content %}{% endblock %}</template>
+    <template data-modal-target="footer">{% block footer %}{% endblock %}</template>
+</div>

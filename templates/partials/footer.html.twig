@@ -1,0 +1,13 @@
+{% extends "partials/base.html.twig" %}
+
+{% block partial_content %}
+<footer class="border-t border-ink-100 bg-white py-6" role="contentinfo">
+    <div class="da-container flex items-center gap-8 flex-wrap">
+
+        <p class="text-[13px] text-ink-400 w-full text-center pt-2 border-t border-ink-100 md:w-auto md:pt-0 md:border-t-0">
+            &copy; {{ "now"|date("Y") }} {{ configuration.app.name }} &mdash; {{ configuration.app.description }}
+        </p>
+
+    </div>
+</footer>
+{% block partial_content %}

@@ -1,0 +1,36 @@
+{% extends "partials/base.html.twig" %}
+
+{# Init block #}
+{% block footer %}
+    {% if footer is defined %}
+        {{ footer|raw }}
+    {% endif %}
+{% endblock %}
+{% block title %}{% if title is defined and title is not empty %}{{ title|raw }}{% endif %}{% endblock %}
+{% block content %}{% if content is defined and content is not empty %}{{ content|raw }}{% endif %}{% endblock %}
+{% block subtitle %}{% if subtitle is defined and subtitle is not empty %}{{ subtitle|raw }}{% endif %}{% endblock %}
+{% block class %}{% if class is defined and class is not empty %}{{ class|raw }}{% endif %}{% endblock %}
+
+{% set _card_title = block("title")|trim %}
+{% set _card_subtitle = block("subtitle")|trim %}
+{% set _card_class = block("class")|trim %}
+{% set _card_content = block("content")|trim %}
+{% block partial_content %}
+    <div class="flex w-full justify-center items-center p-4">
+        <div class="flex-1 {{ _card_class }}">
+            <div class="card w-full">
+                {% if( _card_title is not empty ) %}
+                <header>
+                    <h2>{{ _card_title|raw }}</h2>
+                    {% if( _card_subtitle is not empty ) %}
+                        <p>{{ _card_subtitle|raw }}</p>
+                    {% endif %}
+                </header>
+                {% endif %}
+                <section>
+                    {{ _card_content|raw }}
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

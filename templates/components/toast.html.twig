@@ -1,0 +1,9 @@
+{%- set stimulus_values = {type: type, message: message} -%}
+{%- if title is defined and title is not empty -%}{%- set stimulus_values = stimulus_values|merge({title: title}) -%}{%- endif -%}
+{%- if url is defined and url is not empty   -%}{%- set stimulus_values = stimulus_values|merge({url: url})     -%}{%- endif -%}
+{%- if show is defined and not show   -%}{%- set stimulus_values = stimulus_values|merge({show: show})     -%}{%- endif -%}
+
+<div
+    style="display:none"
+    {{ stimulus_controller('components/twig/toast', stimulus_values) }}
+></div>

@@ -1,0 +1,10 @@
+/* home — keyframe non exprimable en Tailwind */
+
+.home-notification {
+    animation: home-float 3s ease-in-out infinite;
+}
+
+@keyframes home-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+}

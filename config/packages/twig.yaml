@@ -1,0 +1,11 @@
+twig:
+    file_name_pattern: '*.twig'
+    globals:
+        mail_theme: '%mail_theme%'
+        configuration:
+            app: '%app%'
+    form_themes:
+        - 'form/da_form_theme.html.twig'
+when@test:
+    twig:
+        strict_variables: true

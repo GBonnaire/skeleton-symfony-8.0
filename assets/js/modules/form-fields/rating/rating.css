@@ -1,0 +1,35 @@
+.rating-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.rating-score .star {
+    cursor: pointer;
+    user-select: none;
+}
+
+.rating-score .star::after {
+    user-select: none;
+    font: var(--fa-font-regular);
+    content: "\f005";
+    color: var(--da-brand);
+    font-size: 21px;
+}
+
+.rating-score .star.active::after {
+    font: var(--fa-font-solid);
+    content: "\f005";
+    font-size: 21px;
+}
+
+.rating-score .star.half-active::after {
+    font: var(--fa-font-solid);
+    content: "\f5c0";
+    font-size: 21px;
+}
+
+.rating-score.readonly .star {
+    cursor: default;
+}

@@ -1,0 +1,76 @@
+.file-dropzone {
+  min-height: 200px;
+  padding: 20px;
+  border: 1px solid var(--form-field-border-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  margin: 10px auto;
+  cursor: pointer;
+
+  .errors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .error {
+      display: block;
+      color: var(--danger);
+      font-weight: var(--weight-bold);
+    }
+  }
+
+  &.dragover {
+    border: 2px solid var(--primary);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    gap: 30px;
+
+    .icon {
+      &:before {
+        color: var(--muted);
+        display: inline-block;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        font: var(--fa-font-regular);
+        content: "\f15b";
+        margin-right: 5px;
+        font-size: 3em;
+      }
+    }
+
+    .placeholder, .support {
+      text-align: center;
+      display: block;
+      font-size: 0.9em;
+      color: var(--muted);
+    }
+
+    .support {
+      font-weight: var(--weight-bold);
+    }
+  }
+
+  .list-files {
+    .file-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .remove {
+        padding: 0;
+        margin: 0;
+        color: var(--danger);
+        border: none;
+      }
+    }
+  }
+
+}

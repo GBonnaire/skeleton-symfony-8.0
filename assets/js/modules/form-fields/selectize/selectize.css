@@ -1,0 +1,25 @@
+/* ─── CSS custom properties — valeurs theme.css ─────────────────────────── */
+.da-selectize {
+    --choices-guttering: 0;
+    --choices-font-size-lg: 15px;
+    --choices-font-size-md: 15px;
+    --choices-font-size-sm: 13px;
+    --choices-bg-color: #fff;
+    --choices-bg-color-dropdown: #fff;
+    --choices-bg-color-disabled: #F7FAFA;
+    --choices-item-disabled-color: #C5CDD1;
+    --choices-text-color: #0F1417;
+    --choices-keyline-color: #DFE5E7;
+    --choices-border-radius: 8px;
+    --choices-border-radius-item: 8px;
+    --choices-primary-color: #0F558A;
+    --choices-highlight-color: #0F558A;
+    --choices-highlighted-color: #E8F2FA;
+    --choices-invalid-color: #E84855;
+    --choices-input-height: 44px;
+    --choices-z-index: 200;
+    --choices-placeholder-opacity: 1;
+    --choices-button-offset: 8px;
+    --choices-button-dimension: 8px;
+    --choices-multiple-item-padding: 4px 10px;
+}

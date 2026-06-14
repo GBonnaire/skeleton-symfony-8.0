@@ -1,0 +1,31 @@
+@use "../../../../styles/core/theme" as *;
+
+.rating-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+
+    .star {
+        cursor: pointer;
+        user-select: none;
+        &::after {
+            user-select: none;
+            font: var(--fa-font-regular);
+            content: "\f005";
+            color: $primary;
+            font-size: 21px;
+        }
+        &.active::after {
+            font: var(--fa-font-solid);
+            content: "\f005";
+            font-size: 21px;
+        }
+
+        &.half-active::after {
+            font: var(--fa-font-solid);
+            content: "\f5c0";
+            font-size: 21px;
+        }
+    }
+}

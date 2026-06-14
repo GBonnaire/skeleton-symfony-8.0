@@ -1,0 +1,75 @@
+.file-dropzone {
+    min-height: 200px;
+    padding: 20px;
+    border: 1px solid var(--da-border-strong);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.file-dropzone .errors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.file-dropzone .errors .error {
+    display: block;
+    color: #E84855;
+    font-weight: 600;
+}
+
+.file-dropzone.dragover {
+    border: 2px solid var(--da-brand);
+}
+
+.file-dropzone .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    gap: 30px;
+}
+
+.file-dropzone .header .icon::before {
+    color: var(--da-text-muted);
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font: var(--fa-font-regular);
+    content: "\f15b";
+    margin-right: 5px;
+    font-size: 3em;
+}
+
+.file-dropzone .header .placeholder,
+.file-dropzone .header .support {
+    text-align: center;
+    display: block;
+    font-size: 0.9em;
+    color: var(--da-text-muted);
+}
+
+.file-dropzone .header .support {
+    font-weight: 600;
+}
+
+.file-dropzone .list-files .file-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.file-dropzone .list-files .file-item .remove {
+    padding: 0;
+    margin: 0;
+    color: #E84855;
+    border: none;
+    background: none;
+    cursor: pointer;
+}

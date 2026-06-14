@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title>{{ status_code }} {{ status_text }} - {{ configuration.app.name ?? '' }}</title>
+    <link rel="icon" href="{{ asset('favicons/favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+</head>
+<body class="min-h-screen flex flex-col" style="background-color: var(--da-canvas);">
+
+    {# Header minimal #}
+    <header style="background: var(--da-brand);" class="shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <a href="/" class="inline-flex items-center gap-3 no-underline">
+                <div class="leading-tight">
+                    {{ configuration.app.name ?? '' }}
+                </div>
+            </a>
+        </div>
+    </header>
+
+    {# Error content #}
+    <main class="flex-1 flex items-center justify-center px-4 py-16">
+        <div class="text-center max-w-lg">
+            {% block error_icon %}
+                <div class="text-8xl mb-6" style="color: var(--da-border-strong);">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+            {% endblock %}
+
+            <div class="text-7xl font-black mb-4" style="color: var(--da-brand); opacity: 0.15;">{{ status_code }}</div>
+
+            {% block error_title %}
+                <h1 class="text-2xl font-bold text-gray-800 mb-3">Une erreur est survenue</h1>
+            {% endblock %}
+
+            {% block error_message %}
+                <p class="text-gray-500 mb-8">Une erreur inattendue s'est produite. Veuillez réessayer plus tard.</p>
+            {% endblock %}
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="/" class="btn btn-primary">
+                    <i class="fa-solid fa-house mr-2"></i> Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </main>
+
+    {# Footer minimal #}
+    <footer class="py-6 text-center border-t border-gray-200">
+        <p class="text-sm text-gray-400">
+            &copy; {{ "now"|date("Y") }} {{ configuration.app.name ?? '' }}. Tous droits réservés.
+        </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}{{ 'security.reset_password.check_email.title'|trans({}, 'page_security') }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        {label: 'Home', url: path('app_home')},
+        {label: 'security.reset_password.check_email.breadcrumb'|trans({}, 'page_security'), url: null}
+    ] %}
+    {% include 'partials/breadcrumb.html.twig' with {items: breadcrumb} %}
+{% endblock %}
+
+{% block main %}
+    <div class="da-container py-8">
+        {% embed 'partials/card.html.twig' with {
+            'class': 'max-w-2xl mx-auto',
+            'title': '<i class="fa-solid fa-envelope-circle-check mr-2 text-azur-600"></i>' ~ 'security.reset_password.check_email.card_title'|trans({}, 'page_security')
+        } %}
+            {% block content %}
+                {# Message de succès #}
+                <div class="bg-success-50 border border-success-500/25 text-success-600 px-4 py-3 mb-6">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-circle-check mr-3 mt-1 text-xl"></i>
+                        <div>
+                            <strong class="font-semibold">{{ 'security.reset_password.check_email.success_title'|trans({}, 'page_security') }}</strong>
+                            <p class="text-sm mt-1">
+                                {{ 'security.reset_password.check_email.message_sent'|trans({}, 'page_security') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {# Informations sur l'expiration #}
+                <div class="bg-ink-50 border border-ink-100 p-4 mb-6">
+                    <p class="text-ink-700">
+                        <i class="fa-solid fa-clock mr-2 text-azur-600"></i>
+                        {{ 'security.reset_password.check_email.expiration_info'|trans({}, 'page_security') }}
+                        <strong>{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}</strong>.
+                    </p>
+                </div>
+
+                {# Instructions #}
+                <div class="space-y-4 mb-6">
+                    <h3 class="font-bold text-lg text-azur-600">
+                        <i class="fa-solid fa-list-check mr-2"></i>
+                        {{ 'security.reset_password.check_email.next_steps'|trans({}, 'page_security') }}
+                    </h3>
+                    <ol class="list-decimal list-inside space-y-2 text-ink-700">
+                        <li>{{ 'security.reset_password.check_email.step1'|trans({}, 'page_security') }}</li>
+                        <li>{{ 'security.reset_password.check_email.step2'|trans({}, 'page_security') }}</li>
+                        <li>{{ 'security.reset_password.check_email.step3'|trans({}, 'page_security') }}</li>
+                    </ol>
+                </div>
+
+                {# Message si email non reçu #}
+                <div class="bg-warning-50 border border-warning-500/25 text-warning-600 px-4 py-3 mb-6">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-triangle-exclamation mr-3 mt-1"></i>
+                        <div>
+                            <p class="text-sm">
+                                {{ 'security.reset_password.check_email.not_received'|trans({}, 'page_security') }}
+                            </p>
+                            <ul class="list-disc list-inside text-sm mt-2 space-y-1">
+                                <li>{{ 'security.reset_password.check_email.check_spam'|trans({}, 'page_security') }}</li>
+                                <li>{{ 'security.reset_password.check_email.check_address'|trans({}, 'page_security') }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {# Actions #}
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <a href="{{ path('app_forgot_password_request') }}" class="da-btn da-btn-primary da-btn-lg">
+                        <i class="fa-solid fa-rotate-right mr-2"></i>
+                        {{ 'security.reset_password.check_email.try_again'|trans({}, 'page_security') }}
+                    </a>
+                    <a href="{{ path('app_login') }}" class="da-btn da-btn-secondary da-btn-lg">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>
+                        {{ 'security.reset_password.check_email.back_to_login'|trans({}, 'page_security') }}
+                    </a>
+                </div>
+            {% endblock %}
+        {% endembed %}
+    </div>
+{% endblock %}

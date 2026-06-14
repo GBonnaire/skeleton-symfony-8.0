@@ -1,0 +1,38 @@
+.clipboard-target {
+  position: relative;
+}
+
+.clipboard-target .clipboard-trigger {
+  position: absolute;
+  top: 1em;
+  right: 2em;
+  font-size: 0.8em;
+  line-height: 20px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--da-border-strong);
+  border-radius: var(--radius-sm);
+  margin: 0;
+  padding-left: 2.5em;
+}
+
+.clipboard-target .clipboard-trigger::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+  content: "\f0c5";
+  margin-right: 5px;
+  font-size: 1em;
+  position: absolute;
+  left: 1em;
+  top: calc(50% - 0.5em);
+}
+
+.clipboard-target .clipboard-trigger:hover,
+.clipboard-target .clipboard-trigger:focus,
+.clipboard-target .clipboard-trigger:active {
+  color: var(--da-surface);
+  background: var(--da-brand);
+  background-image: linear-gradient(to bottom left, rgba(147, 188, 221, 0.7), rgba(147, 188, 221, 0) 70%);
+}

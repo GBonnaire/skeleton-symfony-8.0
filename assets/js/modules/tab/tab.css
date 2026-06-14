@@ -1,0 +1,29 @@
+ul.tab {
+  list-style-type: none;
+  margin: 10px auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  border-radius: 8px;
+}
+
+ul.tab li {
+  cursor: pointer;
+  padding: 10px !important;
+  margin: 0 !important;
+  border-radius: 8px;
+  text-align: center;
+}
+
+ul.tab li::before {
+  display: none !important;
+}
+
+ul.tab li.active {
+  background: var(--da-brand);
+  color: #fff;
+}

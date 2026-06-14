@@ -1,0 +1,18 @@
+{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
+
+{% block error_icon %}
+    <div class="text-8xl mb-6" style="color: var(--da-border-strong);">
+        <i class="fa-solid fa-map-location-dot"></i>
+    </div>
+{% endblock %}
+
+{% block error_title %}
+    <h1 class="text-2xl font-bold text-gray-800 mb-3">Page non trouvée</h1>
+{% endblock %}
+
+{% block error_message %}
+    <p class="text-gray-500 mb-8">
+        La page que vous recherchez n'existe pas ou a été déplacée.<br>
+        Veuillez vérifier l'URL ou retourner à la page d'accueil.
+    </p>
+{% endblock %}

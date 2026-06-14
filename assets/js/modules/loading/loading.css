@@ -1,0 +1,29 @@
+.loading {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  left: calc(50% - 32px);
+  margin-top: 40px;
+}
+
+.loading:after {
+  content: " ";
+  display: block;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 4px solid var(--da-brand);
+  border-color: var(--da-brand) transparent var(--da-brand) transparent;
+  animation: spin-loader 1.2s linear infinite;
+}
+
+@-webkit-keyframes spin-loader {
+  from { -webkit-transform: rotate(0deg); }
+  to   { -webkit-transform: rotate(359deg); }
+}
+
+@keyframes spin-loader {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(359deg); }
+}

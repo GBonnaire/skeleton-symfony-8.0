@@ -1,0 +1,7 @@
+# Rôles utilisateurs
+user_role:
+    super_admin: "Super Administrateur"
+    admin: "Administrateur"
+    manager: "Gestionnaire"
+    user: "Utilisateur"
+    api: "Accès API"

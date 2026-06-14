@@ -1,0 +1,95 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}{{ 'security.reset_password.reset.title'|trans({}, 'page_security') }}{% endblock %}
+
+{% block main %}
+    <twig:Form :form="form" classCard="max-w-md mx-auto mt-8">
+
+        <twig:block name="title">
+            <i class="fa-solid fa-lock-open mr-2 text-azur-600"></i>
+            {{ 'security.reset_password.reset.title'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="subtitle">
+            <p class="text-ink-500 mt-2">{{ 'security.reset_password.reset.subtitle'|trans({}, 'page_security') }}</p>
+        </twig:block>
+
+        <twig:block name="header">
+            <div class="bg-ink-50 border border-ink-100 p-4 mb-6">
+                <h3 class="font-bold mb-2 text-azur-600 flex items-center">
+                    <i class="fa-solid fa-shield-halved mr-2"></i>
+                    {{ 'security.reset_password.reset.security_requirements'|trans({}, 'page_security') }}
+                </h3>
+                <ul class="text-sm text-ink-700 space-y-1">
+                    <li>
+                        <i class="fa-solid fa-check text-success-600 mr-2"></i>
+                        {{ 'security.reset_password.reset.requirement1'|trans({}, 'page_security') }}
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check text-success-600 mr-2"></i>
+                        {{ 'security.reset_password.reset.requirement2'|trans({}, 'page_security') }}
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check text-success-600 mr-2"></i>
+                        {{ 'security.reset_password.reset.requirement3'|trans({}, 'page_security') }}
+                    </li>
+                </ul>
+            </div>
+        </twig:block>
+
+        <twig:block name="fields">
+            <div class="space-y-4">
+                <div class="form-group">
+                    {{ form_label(form.plainPassword.first, 'security.reset_password.reset.new_password_label'|trans({}, 'page_security'), {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form.plainPassword.first, {
+                        'attr': {
+                            'class': 'da-input',
+                            'placeholder': '••••••••'
+                        }
+                    }) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.plainPassword.second, 'security.reset_password.reset.confirm_password_label'|trans({}, 'page_security'), {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form.plainPassword.second, {
+                        'attr': {
+                            'class': 'da-input',
+                            'placeholder': '••••••••'
+                        }
+                    }) }}
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+            </div>
+        </twig:block>
+
+        <twig:block name="label">
+            <i class="fa-solid fa-check mr-2"></i>
+            {{ 'security.reset_password.reset.submit'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="footer">
+            <div class="bg-success-50 border border-success-500/25 text-success-600 px-4 py-3 mt-6">
+                <div class="flex items-start">
+                    <i class="fa-solid fa-lightbulb mr-3 mt-1"></i>
+                    <div class="text-sm">
+                        <strong class="font-semibold">{{ 'security.reset_password.reset.tip_title'|trans({}, 'page_security') }}</strong>
+                        <p class="mt-1">{{ 'security.reset_password.reset.tip_content'|trans({}, 'page_security') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <a href="{{ path('app_login') }}" class="inline-flex items-center text-sm text-ink-500 hover:text-azur-600">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>
+                    {{ 'security.reset_password.reset.back_to_login'|trans({}, 'page_security') }}
+                </a>
+            </div>
+        </twig:block>
+
+    </twig:Form>
+{% endblock %}

@@ -1,0 +1,19 @@
+# Messages flash - Français
+# Structure: {controller}.{action}.{type}
+
+# AccountController
+account:
+  login:
+    error: "Identifiants invalides. Veuillez vérifier votre email et votre mot de passe."
+    success: "Connexion réussie. Bienvenue !"
+  logout:
+    success: "Vous avez été déconnecté avec succès."
+  password_change:
+    success: "Votre mot de passe a été modifié avec succès."
+    error: "Le mot de passe actuel est incorrect."
+  section:
+    saved: "Informations enregistrées avec succès."
+
+# RegistrationController
+registration:
+  success: "Votre compte a été créé avec succès. Bienvenue !"

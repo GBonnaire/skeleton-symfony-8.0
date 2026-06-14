@@ -1,0 +1,86 @@
+security:
+
+    # ── Connexion ────────────────────────────────────────────────
+    login:
+        title: "Connexion"
+        breadcrumb: "Connexion"
+        subtitle: "Connectez-vous à votre espace personnel"
+        forgot_password: "Mot de passe oublié ?"
+        submit: "Se connecter"
+        no_account: "Pas encore de compte ?"
+        register: "Créer un compte"
+        or: "ou"
+        back_home: "Retour à l'accueil"
+        error:
+            title: "Échec de la connexion"
+
+    # ── Inscription ──────────────────────────────────────────────
+    register:
+        title: "S'incrire"
+        breadcrumb: "Inscription"
+        subtitle: "Accèder à votre espace personnel"
+        welcome_message: "Bienvenue ! Créez votre compte en quelques clics"
+        submit: "Créer mon compte"
+        already_account: "Déjà un compte ?"
+        login_link: "Se connecter"
+        password_requirements:
+            title: "Exigences du mot de passe"
+            requirement1: "Au moins 8 caractères"
+            requirement2: "Au moins une lettre majuscule et une minuscule"
+            requirement3: "Au moins un chiffre"
+
+
+    # ── Réinitialisation du mot de passe ────────────────────────
+    reset_password:
+
+        # Email envoyé (check_email)
+        check_email:
+            title: "Email envoyé"
+            breadcrumb: "Email envoyé"
+            card_title: "Email de réinitialisation envoyé"
+            success_title: "Email envoyé avec succès !"
+            message_sent: "Un email contenant le lien de réinitialisation vous a été envoyé."
+            expiration_info: "Ce lien expirera dans"
+            next_steps: "Prochaines étapes"
+            step1: "Vérifiez votre boîte de réception"
+            step2: "Cliquez sur le lien de réinitialisation dans l'email"
+            step3: "Créez votre nouveau mot de passe"
+            not_received: "Vous n'avez pas reçu l'email ?"
+            check_spam: "Vérifiez votre dossier spam ou courrier indésirable"
+            check_address: "Assurez-vous d'avoir saisi la bonne adresse email"
+            try_again: "Renvoyer l'email"
+            back_to_login: "Retour à la connexion"
+
+        # Demande de réinitialisation (request)
+        request:
+            title: "Mot de passe oublié"
+            breadcrumb: "Réinitialisation"
+            subtitle: "Réinitialisez votre mot de passe"
+            instructions: "Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe."
+            email_label: "Adresse email"
+            email_placeholder: "exemple@email.com"
+            privacy_note: "Votre adresse email ne sera utilisée que pour la réinitialisation."
+            submit: "Envoyer le lien de réinitialisation"
+            back_to_login: "Retour à la connexion"
+            help:
+                title: "Besoin d'aide ?"
+                question1: "Vous n'avez pas reçu l'email ?"
+                answer1: "Vérifiez votre dossier spam. Si le problème persiste, contactez le support."
+                question2: "Vous ne vous souvenez plus de votre adresse email ?"
+                answer2: "Contactez notre support pour récupérer l'accès à votre compte."
+
+        # Saisie du nouveau mot de passe (reset)
+        reset:
+            title: "Nouveau mot de passe"
+            breadcrumb: "Nouveau mot de passe"
+            subtitle: "Choisissez votre nouveau mot de passe"
+            security_requirements: "Exigences de sécurité"
+            requirement1: "Au moins 8 caractères"
+            requirement2: "Au moins une lettre majuscule et une minuscule"
+            requirement3: "Au moins un chiffre"
+            new_password_label: "Nouveau mot de passe"
+            confirm_password_label: "Confirmer le nouveau mot de passe"
+            submit: "Enregistrer le nouveau mot de passe"
+            back_to_login: "Retour à la connexion"
+            tip_title: "Conseil"
+            tip_content: "Choisissez un mot de passe unique que vous n'utilisez pas sur d'autres sites."

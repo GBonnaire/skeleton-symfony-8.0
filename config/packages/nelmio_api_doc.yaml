@@ -1,0 +1,31 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: 'Swagger Api Doc'
+            description: 'API REST'
+            version: '1.0.0'
+        components:
+            securitySchemes:
+                BearerAuth:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+            - BearerAuth: []
+
+    areas:
+        default:
+            path_patterns:
+                - ^/api
+                - ^/api/v1
+            name_patterns:
+                - ^app_api_(?!not_found)
+                - ^app_api_v1_(?!not_found)
+
+    html_config:
+        assets_mode: cdn
+        swagger_ui_config:
+            urls:
+                - { url: '/api/api_doc.json', name: 'api_doc' }
+                - { url: '/api/v1/api_doc.json', name: 'api_doc_v1' }
+            "urls.primaryName": 'api_doc'

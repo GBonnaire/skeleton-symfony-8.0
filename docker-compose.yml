@@ -1,0 +1,56 @@
+services:
+  claudeai:
+      build:
+          context: ./docker/claudeai
+          dockerfile: Dockerfile
+      volumes:
+          - ./:/var/www/app
+          - ./var/log:/var/www/app/var/log:delegated
+          - ./vendor:/var/www/app/vendor:delegated
+      depends_on:
+          - db
+          - maildev
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/app:cached
+      - ./var/log:/var/www/app/var/log:delegated
+      - ./vendor:/var/www/app/vendor:delegated
+      - /var/www/app/var/cache
+    depends_on:
+      - db
+      - maildev
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./public:/var/www/app/public
+    ports:
+      - "80:80"
+    depends_on:
+      - php
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  maildev:
+    image: maildev/maildev
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - "8081:80"

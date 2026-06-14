@@ -1,0 +1,30 @@
+form_security:
+  email:
+    label: Email
+    error:
+      required: Vous devez fournir votre email
+      invalid: Vous devez fournir un email valide
+  password:
+    label: Mot de passe
+    error:
+      required: Veuillez saisir votre mot de passe
+  remember_me:
+    label: Se souvenir de moi
+
+security:
+  register:
+    # Champ email
+    email_label: "Adresse email"
+    email_placeholder: "exemple@email.com"
+    email_required: "L'adresse email est obligatoire"
+    email_invalid: "L'adresse email n'est pas valide"
+
+    # Champ mot de passe
+    password_label: "Mot de passe"
+    password_confirm_label: "Confirmer le mot de passe"
+    password_required: "Le mot de passe est obligatoire"
+    password_min_length: "Le mot de passe doit contenir au moins 8 caractères"
+    password_max_length: "Le mot de passe ne peut pas dépasser 24 caractères"
+    password_complexity: "Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre"
+    password_mismatch: "Les mots de passe ne correspondent pas"
+    password_compromised: "Ce mot de passe a été compromis, veuillez en choisir un autre"

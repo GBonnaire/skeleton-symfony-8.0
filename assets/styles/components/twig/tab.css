@@ -1,0 +1,20 @@
+/* component/twig/tab — états non-exprimables statiquement en Tailwind */
+
+/* Masquer la scrollbar sur nav débordant */
+.da-tab__nav {
+    scrollbar-width: none;
+}
+.da-tab__nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* État actif — toggleé par TabManager JS (classe .active) */
+.da-tab__item.active {
+    color: #0F558A;
+    border-bottom-color: #0F558A;
+}
+
+/* L'icône prend la couleur brand sur l'onglet actif */
+.da-tab__item.active i {
+    color: #145E92;
+}

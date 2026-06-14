@@ -1,0 +1,146 @@
+/*
+ * theme.css — Configuration centrale du design system
+ */
+
+/* ── 1. Tokens Tailwind v4 (@theme) ────────────────────────────
+   Ces tokens deviennent des classes utilitaires Tailwind.
+   Ex : bg-azur-600, text-ink-500, shadow-card, rounded-md…
+*/
+@theme {
+    /* Typographie */
+    --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'Montserrat Mono', ui-monospace, monospace;
+
+    /* Palette Azur (couleur de marque) */
+    --color-azur-50:  #E8F2FA;
+    --color-azur-100: #C8DEF0;
+    --color-azur-200: #93BCDD;
+    --color-azur-300: #5A99C5;
+    --color-azur-400: #2C77AB;
+    --color-azur-500: #145E92;
+    --color-azur-600: #0F558A; /* ← couleur signature */
+    --color-azur-700: #0A4470;
+    --color-azur-800: #073354;
+    --color-azur-900: #051F36;
+
+    /* Palette Ink (neutres froids) */
+    --color-ink-0:   #FFFFFF;
+    --color-ink-50:  #F7FAFA;
+    --color-ink-100: #EEF2F3;
+    --color-ink-200: #DFE5E7;
+    --color-ink-300: #C5CDD1;
+    --color-ink-400: #98A2A8;
+    --color-ink-500: #6B757B;
+    --color-ink-600: #4A555C;
+    --color-ink-700: #2F383E;
+    --color-ink-800: #1C2429;
+    --color-ink-900: #0F1417;
+
+    /* Palette Corail (accent alerte — usage strict) */
+    --color-coral-100: #FFE3DE;
+    --color-coral-400: #FF8A7B;
+    --color-coral-500: #FF6B5B; /* ← signal alerte active */
+    --color-coral-600: #E64A39;
+
+    /* Couleurs sémantiques */
+    --color-success-50:  #E6F7EE;
+    --color-success-500: #10A86B;
+    --color-success-600: #0A8A55;
+    --color-warning-50:  #FFF6E3;
+    --color-warning-500: #F59E0B;
+    --color-warning-600: #C77F08;
+    --color-danger-50:   #FDECEE;
+    --color-danger-500:  #E84855;
+    --color-danger-600:  #C8323E;
+    --color-info-50:     #EAF1FE;
+    --color-info-500:    #3B82F6;
+    --color-info-600:    #2563EB;
+
+    /* Ombres */
+    --shadow-card:  0 1px 0 0 rgba(15, 20, 23, 0.04), 0 1px 2px 0 rgba(15, 20, 23, 0.04);
+    --shadow-pop:   0 4px 14px -2px rgba(15, 20, 23, 0.08), 0 2px 4px -1px rgba(15, 20, 23, 0.04);
+    --shadow-float: 0 16px 40px -12px rgba(15, 20, 23, 0.18), 0 4px 10px -2px rgba(15, 20, 23, 0.06);
+
+    /* Rayons */
+    --radius-xs: 4px;  /* pastilles, badges */
+    --radius-sm: 6px;  /* petits inputs */
+    --radius-md: 10px; /* cartes */
+    --radius-lg: 14px; /* modales */
+    --radius-xl: 20px;
+}
+
+/* Tailwind v4 : aligner rounded (sans suffixe) sur 8px (valeur DS) */
+.rounded { border-radius: 8px; } /* boutons, inputs */
+
+/* ── 2. Variables CSS globales ──────────────────────────────────
+   Utilisables dans n'importe quel fichier CSS via var(--da-*).
+   Nommées avec le préfixe --da- pour éviter les conflits.
+*/
+:root {
+    /* Couleurs rôles sémantiques */
+    --da-brand:         #0F558A;
+    --da-brand-hover:   #0A4470;
+    --da-brand-light:   #E8F2FA;
+    --da-alert-accent:  #FF6B5B;
+    --da-canvas:        #F7FAFA;
+    --da-surface:       #FFFFFF;
+    --da-border:        #EEF2F3;
+    --da-border-strong: #DFE5E7;
+
+    /* Texte */
+    --da-text-primary:   #0F1417;
+    --da-text-secondary: #6B757B;
+    --da-text-muted:     #98A2A8;
+    --da-text-link:      #0F558A;
+
+    /* Focus ring */
+    --da-focus-ring: 0 0 0 3px rgba(15, 85, 138, 0.25);
+    --da-focus-border: #0F558A;
+
+    /* Échelle typographique */
+    --da-text-display: 64px;
+    --da-text-h1:      40px;
+    --da-text-h2:      28px;
+    --da-text-h3:      20px;
+    --da-text-body-lg: 17px;
+    --da-text-body:    15px;
+    --da-text-caption: 13px;
+    --da-text-over:    11px;
+    --da-text-mono:    13px;
+
+    /* Line-heights */
+    --da-lh-display: 1.05;
+    --da-lh-h1:      1.10;
+    --da-lh-h2:      1.20;
+    --da-lh-h3:      1.30;
+    --da-lh-body:    1.55;
+    --da-lh-caption: 1.50;
+
+    /* Tracking (letter-spacing) */
+    --da-tracking-display: -0.035em;
+    --da-tracking-h1:      -0.030em;
+    --da-tracking-h2:      -0.020em;
+    --da-tracking-h3:      -0.010em;
+    --da-tracking-over:     0.140em;
+
+    /* Espacement — base 4px */
+    --da-space-xs:      4px;
+    --da-space-sm:      8px;
+    --da-space-md-:     12px;
+    --da-space-md:      16px;
+    --da-space-lg:      24px;
+    --da-space-xl:      32px;
+    --da-space-2xl:     48px;
+    --da-space-3xl:     64px;
+    --da-space-section: 96px;
+
+    /* Tailles de composants */
+    --da-input-height:     44px;
+    --da-input-height-sm:  36px;
+    --da-btn-height-sm:    32px;
+    --da-btn-height:       40px;
+    --da-btn-height-lg:    48px;
+    --da-btn-height-hero:  56px;
+    --da-nav-height:       64px;
+    --da-touch-min:        44px;
+}

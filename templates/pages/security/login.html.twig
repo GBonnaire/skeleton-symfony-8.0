@@ -1,0 +1,114 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}{{ 'security.login.title'|trans({}, 'page_security') }}{% endblock %}
+
+{% block main %}
+    <twig:Form :form="form" classCard="max-w-md mx-auto mt-8">
+
+        <twig:block name="title">
+            <i class="fa-solid fa-right-to-bracket mr-2 text-azur-600"></i>
+            {{ 'security.login.title'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="subtitle">
+            <p class="text-ink-500 mt-2">{{ 'security.login.subtitle'|trans({}, 'page_security') }}</p>
+        </twig:block>
+
+        <twig:block name="header">
+            {% if error %}
+                <div class="bg-danger-50 border border-danger-500/25 text-danger-600 px-4 py-3 mb-6" role="alert">
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-exclamation-circle mr-2 mt-1"></i>
+                        <div>
+                            <strong class="font-semibold">{{ 'security.login.error.title'|trans({}, 'page_security') }}</strong>
+                            <p class="text-sm mt-1">{{ error }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </twig:block>
+
+        <twig:block name="fields">
+            <div class="space-y-4">
+                <div class="form-group">
+                    {{ form_label(form._username, null, {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form._username, {
+                        'attr': {
+                            'class': 'da-input',
+                            'placeholder': 'exemple@email.com'
+                        }
+                    }) }}
+                    {{ form_errors(form._username) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form._password, null, {
+                        'label_attr': {'class': 'da-label'}
+                    }) }}
+                    {{ form_widget(form._password, {
+                        'attr': {
+                            'class': 'da-input',
+                            'placeholder': '••••••••'
+                        }
+                    }) }}
+                    {{ form_errors(form._password) }}
+                    <div class="mt-2 text-right">
+                        <a href="{{ path('app_forgot_password_request') }}" class="text-sm text-azur-600 hover:text-azur-700 hover:underline">
+                            {{ 'security.login.forgot_password'|trans({}, 'page_security') }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="flex items-center">
+                        {{ form_widget(form._remember_me, {
+                            'attr': {'class': 'w-4 h-4 text-azur-600 border-ink-200 mr-2'}
+                        }) }}
+                        {{ form_label(form._remember_me, null, {
+                            'label_attr': {'class': 'text-sm text-ink-700'}
+                        }) }}
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </div>
+        </twig:block>
+
+        <twig:block name="label">
+            <i class="fa-solid fa-sign-in-alt mr-2"></i>
+            {{ 'security.login.submit'|trans({}, 'page_security') }}
+        </twig:block>
+
+        <twig:block name="footer">
+            <div class="mt-6 pt-6 border-t border-ink-100 text-center">
+                <p class="text-sm text-ink-500">
+                    {{ 'security.login.no_account'|trans({}, 'page_security') }}
+                    <a href="{{ path('app_register') }}" class="text-azur-600 hover:text-azur-700 hover:underline font-semibold">
+                        {{ 'security.login.register'|trans({}, 'page_security') }}
+                    </a>
+                </p>
+            </div>
+
+            <div class="mt-6 text-center">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-ink-100"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-white text-ink-400">{{ 'security.login.or'|trans({}, 'page_security') }}</span>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <a href="{{ path('app_home') }}" class="inline-flex items-center text-sm text-ink-500 hover:text-azur-600">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>
+                        {{ 'security.login.back_home'|trans({}, 'page_security') }}
+                    </a>
+                </div>
+            </div>
+        </twig:block>
+
+    </twig:Form>
+{% endblock %}
