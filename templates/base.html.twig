@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ configuration.app.name }}{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 36 36%22><rect width=%2236%22 height=%2236%22 rx=%228%22 fill=%22%230F558A%22/><text x=%228%22 y=%2226%22 font-family=%22monospace%22 font-size=%2220%22 font-weight=%22600%22 fill=%22white%22>D</text></svg>">
-
-    {# Polices Google — Montserrat (sans) + Montserrat Mono #}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat+Mono:wght@400;500;600&display=swap">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' id="viewport" content='width=device-width,initial-scale=1,user-scalable=0' />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+{#    <link rel="icon" href="{{ asset('build/favicons/favicon.ico') }}" />#}
+{#    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('build/favicons/favicon-16x16.png') }}">#}
+{#    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/favicons/favicon-32x32.png') }}">#}
+{#    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('build/favicons/android-chrome-192x192.png') }}">#}
+{#    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('build/favicons/android-chrome-512x512.png') }}">#}
+{#    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/favicons/apple-touch-icon.png') }}">#}
+{#    <link rel="manifest" href="{{ asset('build/favicons/site.webmanifest') }}">#}
 
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -17,13 +20,11 @@
 
     {% block head %}{% endblock %}
 </head>
-<body  data-turbo="false">
+<body>
     {% block body %}{% endblock %}
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
-
-    {% block scripts %}{% endblock %}
 </body>
 </html>
