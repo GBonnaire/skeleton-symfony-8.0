@@ -20,6 +20,9 @@ RUN bash nodesource_setup.sh
 RUN apt-get install -y nodejs
 RUN rm nodesource_setup.sh
 
+# install UV
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Install claude
 RUN curl -fsSL https://claude.ai/install.sh -o claude_setup.sh
 RUN bash claude_setup.sh
