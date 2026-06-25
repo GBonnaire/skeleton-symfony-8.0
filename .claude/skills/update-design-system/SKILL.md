@@ -30,6 +30,8 @@ Propager les changements effectués claude design vers tous les fichiers du proj
 
 Récupérer intégralement le thème de claude design depuis l'url.
 
+( Use the claude_design MCP (https://api.anthropic.com/v1/design/mcp, auth via /design-login) )
+
 Extraire et noter :
 
 ### 1a. Tokens `@theme`
