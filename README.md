@@ -315,17 +315,17 @@ Le service Docker `claudeai` (`docker/claudeai/Dockerfile`) fournit un environne
 docker compose exec claudeai bash   # entrer dans l'environnement IA
 ```
 
-### Skill : initialisation du design system depuis Claude Design
+### Skills Claude Code
 
-Le skill **`update-design-system`** synchronise tout le design system du projet (`theme.css`, `app.css`, `services.yaml`, `base.html.twig`, `layouts/main.html.twig`) à partir d'un **lien de partage Claude Design**.
+Les skills sont des commandes personnalisées utilisables directement dans Claude Code.
 
-Dans une session Claude Code à la racine du projet :
+- **`/init-skeleton`** : Initialise tous les éléments pour la génération de code par l'IA (mémoire, contextes). **à faire en premier!**
+- **`/update-design-system <url>`** : Synchronise le design system depuis un lien de partage Claude Design.
+- **`/update-readme`** : Met à jour automatiquement le README.md en fonction des évolutions du projet.
 
-```
-/update-design-system https://claude.ai/public/artifacts/<votre-lien-de-partage>
-```
+#### Focus : `/update-design-system`
 
-> Si l'URL n'est pas fournie, Claude vous la demandera puis la conservera en mémoire. Le skill réconcilie les noms de tokens, préserve les variables `--da-*` et ne modifie que ce qui a changé. Détails : [`.claude/skills/update-design-system/SKILL.md`](.claude/skills/update-design-system/SKILL.md).
+Synchronise tout le design system du projet (`theme.css`, `app.css`, `services.yaml`, `base.html.twig`, `layouts/main.html.twig`) à partir d'un **lien de partage Claude Design**.
 
 ### Mémoire projet
 
@@ -354,6 +354,10 @@ yarn dev | yarn watch | yarn build
 
 # Messenger
 php bin/console messenger:consume async -vv
+
+# Scripts locaux à exécuter depuis le container docker php (bin/local)
+./bin/local/fixerQuality.sh                  # exécuter php-cs-fixer
+./bin/local/messenger.sh                     # consommer les messages (limit 10)
 ```
 
 ---

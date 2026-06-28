@@ -47,5 +47,8 @@ RUN apt-get update && apt-get install -y \
 COPY ./config.ini /usr/local/etc/php/conf.d/config.ini
 RUN chmod 755 /usr/local/etc/php/conf.d/config.ini
 
+RUN chmod +x /var/www/app/bin/local/fixerQuality.sh
+RUN chmod +x /var/www/app/bin/local/messenger.sh
+
 RUN usermod -u 1000 www-data
 WORKDIR /var/www/app

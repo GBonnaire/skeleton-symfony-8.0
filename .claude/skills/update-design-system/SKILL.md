@@ -156,6 +156,12 @@ Après toutes les modifications, vérifier :
 
 Présenter un résumé des modifications effectuées par fichier.
 
+## Étape 9 — Importer les pages de claude Design
+
+Demander à l'utilisateur si il souhaite importer les pages de claude Design. S'il accepte, lister les pages qu'il souhaite importer (liste multiple choix) pour qu'il décide des pages à importer.
+Avant d'importer lis : `.claude/memory/project-frontend-architecture.md` et  `.claude/memory/feedback-skeleton-tools.md`
+Pour chaque page que l'utilisateur souhaite importer les pages de claude Design, met les dans le répertoire `templates/pages/` nomment les en suivant la structure kebab-case de la page, si la structure de la page ne peux pas s'intègrer facilement dans le `main` alors créer un nouveau layout dans `templates/layouts/`.
+
 ---
 
 ## Règles de conduite générale
