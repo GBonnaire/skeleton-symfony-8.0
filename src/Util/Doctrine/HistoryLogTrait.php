@@ -2,7 +2,7 @@
 
 namespace App\Util\Doctrine;
 
-use App\Model\HistoryLogModel;
+use App\Dto\HistoryLog;
 use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,26 +35,26 @@ trait HistoryLogTrait
     }
 
     /**
-     * @return HistoryLogModel[]
+     * @return HistoryLog[]
      */
     public function getHistoryLog(?string $fieldName = null): array
     {
         $history = [];
         foreach ($this->historyLog as $historyData) {
             if (null == $fieldName || $historyData['f'] === $fieldName) {
-                $history[] = new HistoryLogModel($historyData);
+                $history[] = new HistoryLog($historyData);
             }
         }
 
         return $history;
     }
 
-    public function getLastHistoryLog(?string $fieldName = null): ?HistoryLogModel
+    public function getLastHistoryLog(?string $fieldName = null): ?HistoryLog
     {
         $historyLog = array_reverse($this->historyLog);
         foreach ($historyLog as $historyData) {
             if (null == $fieldName || $historyData['f'] === $fieldName) {
-                return new HistoryLogModel($historyData);
+                return new HistoryLog($historyData);
             }
         }
 

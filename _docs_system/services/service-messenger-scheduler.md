@@ -9,7 +9,7 @@ Service d'enveloppe autour du bus Symfony Messenger pour dispatcher des messages
 | Rôle | Chemin |
 |------|--------|
 | Service principal | `src/Service/MessengerSchedulerService.php` |
-| Stamp de déduplication | `src/Model/Stamp/ReferenceKeyStamp.php` |
+| Stamp de déduplication | `src/Dto/Stamp/ReferenceKeyStamp.php` |
 | Configuration Messenger | `config/packages/messenger.yaml` |
 
 ---
@@ -135,7 +135,7 @@ $deleted = $this->scheduler->cancel("reminder_user_{$userId}%");
 Stamp léger attaché au message lors du dispatch. Son unique rôle est de stocker la clé de référence dans le corps sérialisé du message, ce qui permet la recherche SQL dans `messenger_messages`.
 
 ```php
-namespace App\Model\Stamp;
+namespace App\Dto\Stamp;
 
 use Symfony\Component\Messenger\Stamp\StampInterface;
 

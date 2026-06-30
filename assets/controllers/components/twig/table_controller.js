@@ -25,7 +25,7 @@ import { Table } from '../../../js/modules/table/table';
  *
  * Exemple via composant Twig (recommandé) :
  *   <twig:Table url="{{ path('app_data') }}" newUrl="{{ path('app_new') }}" newTitle="Ajouter" />
- *   <twig:Table :data="tableViewModel" />
+ *   <twig:Table :data="tableView" />
  *   <twig:Table url="{{ path('app_data') }}" :header="false" />
  */
 export default class extends Controller {

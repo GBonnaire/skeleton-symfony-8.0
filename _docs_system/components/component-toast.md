@@ -156,26 +156,6 @@ ToastManager.get().flash(
 
 ---
 
-## Structure HTML générée
-
-```html
-<div class="da-toast active">
-    <span class="da-toast__icon da-toast__icon--success">
-        <i class="fa-solid fa-check fa-sm"></i>
-    </span>
-    <div class="da-toast__body">
-        <p class="da-toast__title">Succès</p>
-        <p class="da-toast__desc">Alerte créée avec succès.</p>
-    </div>
-    <button class="da-toast__close" type="button">
-        <i class="fa-solid fa-xmark fa-sm"></i>
-    </button>
-    <!-- barre de progression via ::before CSS -->
-</div>
-```
-
----
-
 ## Classes CSS de référence
 
 | Classe | Rôle |

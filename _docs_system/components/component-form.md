@@ -2,7 +2,6 @@
 
 Mise en page carte centrée pour les formulaires Symfony, avec sidebar optionnelle sticky,
 gestion automatique de `form_start` / `form_end`, et zone de boutons flexible.
-Peut aussi s'utiliser sans formulaire Symfony comme simple layout carte.
 
 ---
 
@@ -243,37 +242,6 @@ sur mobile elle passe en pleine largeur sous la carte.
                 </p>
             </div>
         </div>
-    </twig:block>
-</twig:Form>
-```
-
----
-
-### Sans formulaire Symfony — layout carte seul
-
-Le composant peut s'utiliser sans prop `form` comme simple mise en page
-(page de confirmation, récapitulatif, étape non-formulaire).
-
-```twig
-<twig:Form classCard="max-w-lg mx-auto mt-10">
-    <twig:block name="title">Alerte créée avec succès</twig:block>
-
-    <twig:block name="subtitle">
-        <p class="text-ink-500 mt-2">La surveillance est maintenant active.</p>
-    </twig:block>
-
-    <twig:block name="fields">
-        <div class="space-y-3 da-body text-ink-600">
-            <p><strong>Praticien :</strong> Dr. Martin — Cardiologue</p>
-            <p><strong>Email :</strong> vous@exemple.com</p>
-            <p><strong>Créneaux :</strong> Matin, Après-midi</p>
-        </div>
-    </twig:block>
-
-    <twig:block name="controls">
-        <a href="{{ path('app_alerts_index') }}" class="da-btn da-btn-primary da-btn-lg">
-            Voir mes alertes
-        </a>
     </twig:block>
 </twig:Form>
 ```

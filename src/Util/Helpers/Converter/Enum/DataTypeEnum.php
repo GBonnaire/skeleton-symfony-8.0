@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Util\Helpers\HelpersEnum;
+namespace App\Util\Helpers\Converter\Enum;
 
 /** Types de données cibles utilisés par Converter::convertTo(). */
 enum DataTypeEnum: string

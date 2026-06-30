@@ -191,44 +191,6 @@ rating.addEventListener('change', (instance, value) => {
 
 ---
 
-## Structure HTML générée
-
-```html
-<!-- Input original — masqué par le JS (style="display:none") -->
-<input type="number" id="form_note" name="form[note]"
-    data-rating data-rating-number="5" value="3"
-    style="display:none">
-
-<!-- Div généré par Rating JS, inséré après l'input -->
-<div class="rating-score">
-    <!-- Étoile 1 — active car score >= 1 -->
-    <div class="star active" data-index="1"></div>
-    <!-- Étoile 2 — active car score >= 2 -->
-    <div class="star active" data-index="2"></div>
-    <!-- Étoile 3 — active car score >= 3 -->
-    <div class="star active" data-index="3"></div>
-    <!-- Étoile 4 — inactive -->
-    <div class="star" data-index="4"></div>
-    <!-- Étoile 5 — inactive -->
-    <div class="star" data-index="5"></div>
-
-    <!-- Présent uniquement si show_score=true -->
-    <span class="rating-score-value">3/5</span>
-</div>
-```
-
-### Demi-étoile (score décimal, ex : 2.5)
-
-```html
-<div class="star active"      data-index="1"></div>
-<div class="star active"      data-index="2"></div>
-<div class="star half-active" data-index="3"></div>
-<div class="star"             data-index="4"></div>
-<div class="star"             data-index="5"></div>
-```
-
----
-
 ## Classes CSS de référence
 
 | Classe | Rôle |

@@ -1,3 +1,32 @@
+/* ── Dialog natif : reset et positionnement ───────────────── */
+dialog.modal-dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+dialog.modal-dialog[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fond semi-transparent (équivalent bg-ink-500/75) */
+dialog.modal-dialog::backdrop {
+  background: color-mix(in srgb, var(--color-ink-500, #6B757B) 75%, transparent);
+}
+
+dialog.modal-dialog--no-backdrop::backdrop {
+  display: none;
+}
+
+/* ── Titre ────────────────────────────────────────────────── */
 .modal-title {
   background: linear-gradient(135deg, var(--da-brand) 0%, var(--da-brand-hover) 100%);
   -webkit-background-clip: text;
@@ -5,6 +34,7 @@
   background-clip: text;
 }
 
+/* ── Scrollbar du contenu ─────────────────────────────────── */
 .modal-content::-webkit-scrollbar {
   height: 8px;
   width: 8px;
@@ -24,6 +54,7 @@
   background: var(--da-text-muted);
 }
 
+/* ── Footer ───────────────────────────────────────────────── */
 .modal-footer .controls {
   display: flex;
   flex-direction: row-reverse;
@@ -32,7 +63,7 @@
   width: 100%;
 }
 
-/* ── Icon layouts ─────────────────────────────────────── */
+/* ── Icon layouts ─────────────────────────────────────────── */
 .modal-content--icon-left {
   display: flex;
   flex-direction: row;
@@ -64,7 +95,7 @@
   min-width: 0;
 }
 
-/* ── Icon variants ────────────────────────────────────── */
+/* ── Icon variants ────────────────────────────────────────── */
 .modal-icon--success  { color: var(--color-success-500); }
 .modal-icon--warning  { color: var(--color-warning-500); }
 .modal-icon--danger   { color: var(--color-danger-500); }

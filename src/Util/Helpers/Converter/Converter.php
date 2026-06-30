@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Util\Helpers;
+namespace App\Util\Helpers\Converter;
 
-use App\Util\Helpers\HelpersEnum\DataTypeEnum;
+use App\Util\Helpers\Converter\Enum\DataTypeEnum;
+use App\Util\Helpers\Number;
 
 /** Utilitaires de conversion de types et de formatage de listes textuelles. */
 class Converter

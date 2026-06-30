@@ -193,28 +193,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
----
 
-## Structure HTML générée
-
-```html
-<!-- Input original — masqué par le JS (style="display:none") -->
-<input
-    id="form_telephone"
-    name="form[telephone]"
-    type="text"
-    class="da-input"
-    data-mask='{"mask": "00 00 00 00 00"}'
-    value="0612345678"
-    style="display:none">
-
-<!-- Clone visible créé par MaskField (pas de name, pas d'id) -->
-<input
-    type="text"
-    class="da-input"
-    placeholder="__ __ __ __ __"
-    value="06 12 34 56 78">
-```
-
-> Le clone visible ne porte ni `name` ni `id` : il n'est jamais soumis ni ciblé par les labels.
-> Les attributs `disabled` et `value` de l'input original sont synchronisés en temps réel avec le clone.

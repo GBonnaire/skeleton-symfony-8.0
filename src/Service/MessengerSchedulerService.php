@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Model\Stamp\ReferenceKeyStamp;
+use App\Dto\Stamp\ReferenceKeyStamp;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\DBAL\Connection;

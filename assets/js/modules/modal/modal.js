@@ -42,16 +42,12 @@ export class Modal extends EventsDispatcher {
     }
 
     isShown() {
-        return this.element ? this.element.style.display !== 'none' : false;
+        return this.element?.open ?? false;
     }
 
     close() {
         if(this.element && this.isShown()) {
-            this.element.style.display = 'none';
-            if(this.backdrop) {
-                this.backdrop.style.display = 'none';
-            }
-            this._dispatchEvent("close", this);
+            this.element.close();
         }
     }
 
@@ -61,24 +57,16 @@ export class Modal extends EventsDispatcher {
 
     show() {
         if(this.element && !this.isShown()) {
-            this.element.style.display = '';
-
-            if(this.backdrop) {
-                this.backdrop.style.display = '';
-            }
+            this.element.showModal();
 
             if(isOnMobile()) {
-                this.element.style.width = '100vw';
-                this.alignWrapper.className = 'flex min-h-screen items-center justify-center p-4';
-                this.panel.classList.remove('rounded-none', 'rounded-t-xl');
+                this.panel.classList.remove('rounded-none', 'rounded-t-xl', 'sm:my-8', 'sm:w-full', 'sm:max-w-lg', 'max-w-full');
                 this.panel.classList.add('rounded-lg', 'min-w-0');
                 this.panel.style.width = '100%';
                 this.panel.style.maxWidth = 'calc(100vw - 2rem)';
                 this.panel.style.height = '';
                 this.panel.style.maxHeight = 'calc(100vh - 2rem)';
             } else {
-                this.element.style.width = '';
-                this.alignWrapper.className = 'flex min-h-screen items-center justify-center p-4 sm:p-0';
                 this.panel.classList.remove('rounded-none', 'rounded-t-xl');
                 this.panel.classList.add('sm:my-8', 'sm:w-full', 'sm:max-w-lg', 'rounded-lg', 'w-full', 'min-w-0', 'max-w-full');
                 this.panel.style.maxHeight = '';
@@ -97,7 +85,6 @@ export class Modal extends EventsDispatcher {
 
     destroy() {
         this.element?.remove();
-        this.backdrop?.remove();
     }
 
     init() {
@@ -196,31 +183,32 @@ export class Modal extends EventsDispatcher {
 
         this.panel.append(this.header, this.content, this.footer);
 
-        // ── Centering wrapper ─────────────────────────────────────
-        this.alignWrapper = document.createElement('div');
-        this.alignWrapper.className = 'flex min-h-screen items-center justify-center p-4 sm:p-0';
-        this.alignWrapper.append(this.panel);
-
-        // ── Outer container (shown/hidden) ────────────────────────
-        this.element = document.createElement('div');
-        this.element.style.display = "none";
-        this.element.className = 'fixed inset-0 z-[9002] overflow-y-auto';
-        this.element.append(this.alignWrapper);
+        // ── Dialog natif ──────────────────────────────────────────
+        this.element = document.createElement('dialog');
+        this.element.className = 'modal-dialog';
+        if (!this.options.backdrop) {
+            this.element.classList.add('modal-dialog--no-backdrop');
+        }
+        this.element.append(this.panel);
 
         this.options.root?.append(this.element);
 
-        // ── Backdrop ──────────────────────────────────────────────
-        if(this.options.backdrop) {
-            this.backdrop = document.createElement('div');
-            this.backdrop.className = 'fixed inset-0 bg-ink-500/75 z-[8000]';
-            this.backdrop.style.display = "none";
-            this.backdrop.addEventListener("click", () => {
-                if(this.options.canClose) {
-                    ModalManager.get().closeAll();
-                }
-            });
-            this.options.root?.append(this.backdrop);
-        }
+        // Dispatch notre événement "close" depuis l'événement natif
+        this.element.addEventListener('close', () => {
+            this._dispatchEvent("close", this);
+        });
+
+        // Empêche la fermeture native par Escape ; le ModalManager gère ça via keydown
+        this.element.addEventListener('cancel', (e) => {
+            e.preventDefault();
+        });
+
+        // Clic sur le fond (dialog lui-même, pas sur le panel) → fermer
+        this.element.addEventListener('click', (e) => {
+            if (e.target === this.element && this.options.canClose) {
+                ModalManager.get().closeAll();
+            }
+        });
 
         this._dispatchEvent("init", this);
     }

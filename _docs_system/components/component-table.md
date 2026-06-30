@@ -14,8 +14,8 @@ le mode responsive et la localisation fr/en.
 | Template Twig | `templates/components/table.html.twig` |
 | Contrôleur Stimulus | `assets/controllers/components/twig/table_controller.js` |
 | Module JS | `assets/js/modules/table/table.js` |
-| Modèle de données | `src/Model/TableView/TableViewModel.php` |
-| Modèle de ligne | `src/Model/TableView/TableViewRowModel.php` |
+| Modèle de données | `src/Dto/TableView/TableView.php` |
+| Modèle de ligne | `src/Dto/TableView/TableViewRow.php` |
 
 ---
 
@@ -23,7 +23,7 @@ le mode responsive et la localisation fr/en.
 
 | Prop | Type | Défaut | Description |
 |------|------|--------|-------------|
-| `data` | `TableViewModel\|null` | `null` | Données SSR — exclusif avec `url` |
+| `data` | `TableView\|null` | `null` | Données SSR — exclusif avec `url` |
 | `url` | `string` | `''` | URL AJAX pour charger les données JSON |
 | `id` | `string` | `''` | Attribut `id` HTML du tableau |
 | `class` | `string` | `''` | Classes CSS additionnelles sur `<table>` |
@@ -53,7 +53,7 @@ le mode responsive et la localisation fr/en.
 
 ---
 
-## API — `TableViewModel`
+## API — `TableView`
 
 ### `addColumn(fieldName, label, class, type, order, width, tooltip, responsivePriority)`
 
@@ -71,18 +71,18 @@ Ajoute une colonne au tableau.
 | `responsivePriority` | `int\|null` | `null` | Priorité d'affichage responsive DataTables |
 
 **Constantes de type :**
-- `TableViewModel::COLUMN_TYPE_NUMERIC` → `"numeric"`
-- `TableViewModel::COLUMN_TYPE_TEXT` → `"html"`
-- `TableViewModel::COLUMN_TYPE_DATE` → `"date"`
+- `TableView::COLUMN_TYPE_NUMERIC` → `"numeric"`
+- `TableView::COLUMN_TYPE_TEXT` → `"html"`
+- `TableView::COLUMN_TYPE_DATE` → `"date"`
 
 **Constantes d'ordre :**
-- `TableViewModel::COLUMN_ORDER_ASC` → `"asc"`
-- `TableViewModel::COLUMN_ORDER_DESC` → `"desc"`
+- `TableView::COLUMN_ORDER_ASC` → `"asc"`
+- `TableView::COLUMN_ORDER_DESC` → `"desc"`
 
 ### Autres méthodes
 
 ```php
-$table->addRow(TableViewRowModel $row): self
+$table->addRow(TableViewRow $row): self
 $table->addRows(array $rows): self
 $table->setActiveModeResponsive(bool): self  // ajoute la colonne col-responsive
 $table->setShowColumnActions(bool): self
@@ -93,7 +93,7 @@ $table->toArray(): array  // sérialisation JSON pour la route AJAX
 
 ---
 
-## API — `TableViewRowModel`
+## API — `TableViewRow`
 
 ### `addField(fieldName, label, value?, class?)`
 
@@ -131,19 +131,19 @@ le SEO / le rendu initial est important.
 ### 1 — Contrôleur
 
 ```php
-use App\Model\TableView\TableViewModel;
-use App\Model\TableView\TableViewRowModel;
+use App\Dto\TableView\TableView;
+use App\Dto\TableView\TableViewRow;
 
-$table = new TableViewModel();
+$table = new TableView();
 $table->setActiveModeResponsive(true);
 
-$table->addColumn('id',     'ID',        'w-12',          TableViewModel::COLUMN_TYPE_NUMERIC, TableViewModel::COLUMN_ORDER_ASC);
-$table->addColumn('name',   'Praticien', 'font-semibold', TableViewModel::COLUMN_TYPE_TEXT);
+$table->addColumn('id',     'ID',        'w-12',          TableView::COLUMN_TYPE_NUMERIC, TableView::COLUMN_ORDER_ASC);
+$table->addColumn('name',   'Praticien', 'font-semibold', TableView::COLUMN_TYPE_TEXT);
 $table->addColumn('status', 'Statut',    '');
-$table->addColumn('date',   'Date',      '',              TableViewModel::COLUMN_TYPE_DATE, TableViewModel::COLUMN_ORDER_DESC);
+$table->addColumn('date',   'Date',      '',              TableView::COLUMN_TYPE_DATE, TableView::COLUMN_ORDER_DESC);
 
-foreach ($practitioners as $p) {
-    $row = new TableViewRowModel();
+foreach ($items as $p) {
+    $row = new TableViewRow();
     $row->addField('id',     (string) $p->getId(),   $p->getId());
     $row->addField('name',   $p->getFullName());
     $row->addField('status', $this->renderStatus($p->getStatus()),  $p->getStatus());
@@ -151,7 +151,7 @@ foreach ($practitioners as $p) {
     $table->addRow($row);
 }
 
-return $this->render('admin/practitioners/index.html.twig', [
+return $this->render('admin/items/index.html.twig', [
     'tableData' => $table,
 ]);
 ```
@@ -162,7 +162,7 @@ return $this->render('admin/practitioners/index.html.twig', [
 <twig:Table
     :data="tableData"
     title="Praticiens"
-    newUrl="{{ path('app_admin_practitioners_new') }}"
+    newUrl="{{ path('app_admin_items_new') }}"
     newTitle="Ajouter un praticien"
 />
 ```
@@ -177,18 +177,18 @@ Idéal pour les grandes volumétries ou les tableaux rafraîchissables.
 ### 1 — Route de données (JSON)
 
 ```php
-#[Route('/admin/practitioners/data', name: 'app_admin_practitioners_data', methods: 'GET')]
+#[Route('/admin/items/data', name: 'app_admin_items_data', methods: 'GET')]
 public function data(): JsonResponse
 {
-    $table = new TableViewModel();
+    $table = new TableView();
     $table->setActiveModeResponsive(true);
-    $table->addColumn('id',     'ID',        'w-12',          TableViewModel::COLUMN_TYPE_NUMERIC, TableViewModel::COLUMN_ORDER_ASC);
-    $table->addColumn('name',   'Praticien', 'font-semibold', TableViewModel::COLUMN_TYPE_TEXT);
+    $table->addColumn('id',     'ID',        'w-12',          TableView::COLUMN_TYPE_NUMERIC, TableView::COLUMN_ORDER_ASC);
+    $table->addColumn('name',   'Praticien', 'font-semibold', TableView::COLUMN_TYPE_TEXT);
     $table->addColumn('status', 'Statut',    '');
-    $table->addColumn('date',   'Date',      '',              TableViewModel::COLUMN_TYPE_DATE, TableViewModel::COLUMN_ORDER_DESC);
+    $table->addColumn('date',   'Date',      '',              TableView::COLUMN_TYPE_DATE, TableView::COLUMN_ORDER_DESC);
 
     foreach ($this->repository->findAll() as $p) {
-        $row = new TableViewRowModel();
+        $row = new TableViewRow();
         $row->addField('id',     (string) $p->getId(),  $p->getId());
         $row->addField('name',   $p->getFullName());
         $row->addField('status', $p->getStatus());
@@ -204,9 +204,9 @@ public function data(): JsonResponse
 
 ```twig
 <twig:Table
-    url="{{ path('app_admin_practitioners_data') }}"
+    url="{{ path('app_admin_items_data') }}"
     title="Praticiens"
-    newUrl="{{ path('app_admin_practitioners_new') }}"
+    newUrl="{{ path('app_admin_items_new') }}"
     newTitle="Ajouter un praticien"
 />
 ```
@@ -216,7 +216,7 @@ public function data(): JsonResponse
 ## Lignes cliquables
 
 ```php
-$row->setHref($this->generateUrl('app_admin_practitioners_show', ['id' => $p->getId()]));
+$row->setHref($this->generateUrl('app_admin_items_show', ['id' => $p->getId()]));
 ```
 
 La ligne entière devient cliquable. La classe `table-row-clickable` est ajoutée automatiquement
@@ -230,12 +230,12 @@ sur `<table>` pour le curseur pointer.
 $row->addField('name', $p->getFullName());
 
 $row->addAction(
-    $this->generateUrl('app_admin_practitioners_edit', ['id' => $p->getId()]),
+    $this->generateUrl('app_admin_items_edit', ['id' => $p->getId()]),
     'fas fa-pencil',
     'Modifier'
 );
 $row->addAction(
-    $this->generateUrl('app_admin_practitioners_delete', ['id' => $p->getId()]),
+    $this->generateUrl('app_admin_items_delete', ['id' => $p->getId()]),
     'fas fa-trash',
     'Supprimer',
     'Confirmer la suppression ?',
@@ -249,13 +249,13 @@ $row->addAction(
 
 ```twig
 <twig:Table
-    id="table-practitioners"
-    url="{{ path('app_admin_practitioners_data') }}"
+    id="table-items"
+    url="{{ path('app_admin_items_data') }}"
 />
 
 <button
     data-action="components--twig--table#refresh"
-    data-components--twig--table-outlet="#table-practitioners">
+    data-components--twig--table-outlet="#table-items">
     Rafraîchir
 </button>
 ```
@@ -265,7 +265,7 @@ $row->addAction(
 ## Écouter l'événement de chargement
 
 ```js
-document.querySelector('#table-practitioners')
+document.querySelector('#table-items')
     .addEventListener('components--twig--table:load', (e) => {
         const dtInstance = e.detail.table; // instance Table JS
         console.log('Tableau chargé', dtInstance);

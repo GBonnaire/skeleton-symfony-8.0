@@ -3,21 +3,21 @@
 Classes utilitaires statiques situées dans `src/Util/Helpers/`.  
 Toutes les méthodes sont `static` ; aucune instanciation n'est nécessaire.
 
-| Classe | Fichier | Rôle |
-|--------|---------|------|
-| [Address](#address) | `Address.php` | Formatage de codes postaux |
-| [ApiResponse](#apiresponse) | `ApiResponse.php` | Réponses JSON standardisées pour l'API |
-| [Converter](#converter) | `Converter.php` | Conversion de types et génération de listes textuelles |
-| [Date](#date) | `Date.php` | Parsing, manipulation et calculs de dates |
-| [DateDistribution](#datedistribution) | `DateDistribution.php` | Répartition d'éléments sur des créneaux temporels |
-| [Number](#number) | `Number.php` | Formatage et extraction de valeurs numériques |
-| [Password](#password) | `Password.php` | Génération de tokens et mots de passe sécurisés |
-| [PhoneNumber](#phonenumber) | `PhoneNumber.php` | Normalisation de numéros de téléphone (FR, BE) |
-| [Table](#table) | `Table.php` | Manipulation de tableaux et collections Doctrine |
-| [Text](#text) | `Text.php` | Normalisation et conversion de chaînes de caractères |
-| [Web](#web) | `Web.php` | Manipulation d'URLs et de domaines |
-| [WebScrapper](#webscrapper) | `WebScrapper.php` | Scraping HTTP, extraction de métadonnées et liens |
-| [DataTypeEnum](#datatypeenum) | `HelpersEnum/DataTypeEnum.php` | Enum des types de données cibles pour `Converter` |
+| Classe | Fichier                           | Rôle |
+|--------|-----------------------------------|------|
+| [Address](#address) | `Address.php`                     | Formatage de codes postaux |
+| [ApiResponse](#apiresponse) | `ApiResponse.php`                 | Réponses JSON standardisées pour l'API |
+| [Converter](#converter) | `Converter.php`                   | Conversion de types et génération de listes textuelles |
+| [Date](#date) | `Date.php`                        | Parsing, manipulation et calculs de dates |
+| [DateDistribution](#datedistribution) | `DateDistribution.php`            | Répartition d'éléments sur des créneaux temporels |
+| [Number](#number) | `Number.php`                      | Formatage et extraction de valeurs numériques |
+| [Password](#password) | `Password.php`                    | Génération de tokens et mots de passe sécurisés |
+| [PhoneNumber](#phonenumber) | `PhoneNumber.php`                 | Normalisation de numéros de téléphone (FR, BE) |
+| [Table](#table) | `Table.php`                       | Manipulation de tableaux et collections Doctrine |
+| [Text](#text) | `Text.php`                        | Normalisation et conversion de chaînes de caractères |
+| [Web](#web) | `Web.php`                         | Manipulation d'URLs et de domaines |
+| [WebScrapper](#webscrapper) | `WebScrapper.php`                 | Scraping HTTP, extraction de métadonnées et liens |
+| [DataTypeEnum](#datatypeenum) | `Converter/Enum/DataTypeEnum.php` | Enum des types de données cibles pour `Converter` |
 
 ---
 

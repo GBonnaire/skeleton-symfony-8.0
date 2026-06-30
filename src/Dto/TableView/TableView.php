@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model\TableView;
+namespace App\Dto\TableView;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class TableViewModel
+class TableView
 {
     public const COLUMN_TYPE_NUMERIC = 'numeric';
     public const COLUMN_TYPE_TEXT = 'html';
@@ -18,7 +18,7 @@ class TableViewModel
     private ?TranslatorInterface $translator = null;
     private string $translationDomain = '';
 
-    /* @var TableViewRowModel[] */
+    /* @var TableViewRow[] */
     private array $rows = [];
 
     private bool $showColumnActions = false;
@@ -34,7 +34,7 @@ class TableViewModel
         return $this;
     }
 
-    public function addRow(TableViewRowModel $row): self
+    public function addRow(TableViewRow $row): self
     {
         $this->rows[] = $row;
 
@@ -44,7 +44,7 @@ class TableViewModel
     public function addRows(array $rows): self
     {
         foreach ($rows as $row) {
-            if ($row instanceof TableViewRowModel) {
+            if ($row instanceof TableViewRow) {
                 $this->addRow($row);
             }
         }

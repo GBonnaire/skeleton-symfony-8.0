@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Stamp;
+namespace App\Dto\Stamp;
 
 use Symfony\Component\Messenger\Stamp\StampInterface;
 

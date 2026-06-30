@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Util\Helpers;
+namespace App\Util\Helpers\DateDistribution;
 
-use App\Model\DateDistributionItem;
+use App\Util\Helpers\DateDistribution\Dto\DateDistributionItem;
 use DateInterval;
 use DateMalformedPeriodStringException;
 use DatePeriod;

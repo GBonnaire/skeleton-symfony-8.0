@@ -1,7 +1,7 @@
 # Helper — Converter
 
-**Fichier :** `src/Util/Helpers/Converter.php`  
-**Namespace :** `App\Util\Helpers`  
+**Fichier :** `src/Util/Helpers/Converter/Converter.php`  
+**Namespace :** `App\Util\Helpers\Converter`  
 **Dépendances :** `DataTypeEnum`, `Number`
 
 Utilitaires de conversion de types et de formatage de listes textuelles.

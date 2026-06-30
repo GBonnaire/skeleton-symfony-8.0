@@ -1,7 +1,7 @@
 # Helper — DataTypeEnum
 
-**Fichier :** `src/Util/Helpers/HelpersEnum/DataTypeEnum.php`  
-**Namespace :** `App\Util\Helpers\HelpersEnum`
+**Fichier :** `src/Util/Helpers/Converter/Enum/DataTypeEnum.php`  
+**Namespace :** `App\Util\Helpers\Converter\Enum`
 
 Enum backed `string` listant les types de données cibles utilisés par `Converter::convertTo()`.
 
@@ -32,8 +32,7 @@ Enum backed `string` listant les types de données cibles utilisés par `Convert
 ## Utilisation
 
 ```php
-use App\Util\Helpers\Converter;
-use App\Util\Helpers\HelpersEnum\DataTypeEnum;
+use App\Util\Helpers\Converter\Converter;use App\Util\Helpers\Converter\Enum\DataTypeEnum;
 
 Converter::convertTo('42', DataTypeEnum::INTEGER);   // 42
 Converter::convertTo('yes', DataTypeEnum::BOOLEAN);   // true

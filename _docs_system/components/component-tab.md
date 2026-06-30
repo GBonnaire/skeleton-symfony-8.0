@@ -176,54 +176,6 @@ btn?.click();
 
 ---
 
-## Structure HTML générée
-
-```html
-<div id="tabs-medecin"
-     data-controller="components--twig--tab">
-
-    <!-- Barre de navigation -->
-    <div class="border-b border-ink-200">
-        <nav class="tab da-tab__nav -mb-px flex space-x-8 overflow-x-auto"
-             role="tablist"
-             aria-label="Navigation par onglets">
-
-            <button class="da-tab__item ... active"
-                    data-tab-target="tab-profil"
-                    role="tab"
-                    type="button"
-                    aria-selected="true"
-                    tabindex="0">
-                <i class="fa-solid fa-circle-info shrink-0 ..." aria-hidden="true"></i>
-                Profil
-            </button>
-
-            <button class="da-tab__item ..."
-                    data-tab-target="tab-alertes"
-                    role="tab"
-                    type="button"
-                    aria-selected="false"
-                    tabindex="-1">
-                Alertes
-            </button>
-        </nav>
-    </div>
-
-    <!-- Panneaux de contenu -->
-    <div class="pt-5">
-        <div class="da-tab__panel tab-content" id="tab-profil" role="tabpanel">
-            <!-- contenu bloc content de TabContent -->
-        </div>
-        <div class="da-tab__panel tab-content" id="tab-alertes" role="tabpanel"
-             style="display: none;">
-            <!-- contenu bloc content de TabContent -->
-        </div>
-    </div>
-</div>
-```
-
----
-
 ## Classes CSS de référence
 
 | Classe | Rôle |

@@ -281,65 +281,8 @@ Pour surcharger une traduction dans une page spécifique :
 import Translator from 'assets/js/utils/translator';
 
 Translator.get().load({
-    noResultsText: 'Aucun médecin trouvé',
+    noResultsText: 'Aucun élément trouvé',
 }, 'selectize', 'fr');
-```
-
----
-
-## Structure HTML générée
-
-```html
-<!-- Choices.js remplace le <select> par ce wrapper -->
-<div class="choices da-selectize" data-type="select-one" role="combobox" aria-haspopup="listbox">
-
-    <!-- Zone de saisie (visible) -->
-    <div class="choices__inner">
-        <div class="choices__list choices__list--single">
-            <div class="choices__item choices__item--selectable is-selected">
-                Option sélectionnée
-            </div>
-        </div>
-    </div>
-
-    <!-- Dropdown (masqué par défaut, class is-active à l'ouverture) -->
-    <div class="choices__list choices__list--dropdown" aria-expanded="false">
-        <div class="choices__list" role="listbox">
-            <div class="choices__item choices__item--selectable is-highlighted" role="option">
-                Option A
-            </div>
-            <div class="choices__item choices__item--selectable" role="option">
-                Option B
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- Le <select> natif est conservé dans le DOM (masqué), Symfony Forms peut le lire -->
-<select class="da-select" name="mon_champ" hidden aria-hidden="true">…</select>
-```
-
-### Variante multiple
-
-```html
-<div class="choices da-selectize" data-type="select-multiple">
-    <div class="choices__inner">
-        <!-- Tags des items sélectionnés -->
-        <div class="choices__list choices__list--multiple">
-            <div class="choices__item choices__item--selectable">
-                Tag A
-                <button type="button" class="choices__button" aria-label="Supprimer : Tag A">×</button>
-            </div>
-        </div>
-        <!-- Champ de recherche inline -->
-        <input type="search" class="choices__input" placeholder="Rechercher…">
-    </div>
-
-    <div class="choices__list choices__list--dropdown" aria-expanded="false">
-        …
-    </div>
-</div>
 ```
 
 ---

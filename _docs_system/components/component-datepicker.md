@@ -232,44 +232,6 @@ input.addEventListener('apply.daterangepicker', (e) => {
 
 ---
 
-## Structure HTML générée
-
-```html
-<!-- Wrapper Stimulus (posé par le composant Twig ou le form theme) -->
-<div class="form-group"
-     data-controller="components--twig--form-field-datepicker"
-     data-components--twig--form-field-datepicker-single-date-value="false"
-     data-components--twig--form-field-datepicker-opens-value="right"
-     ...>
-
-    <label class="da-label" for="drp_abc12345">Période</label>
-
-    <div class="da-input-wrapper">
-        <i class="fa-regular fa-calendar-days da-input-icon da-input-icon--left" aria-hidden="true"></i>
-        <input
-            id="drp_abc12345"
-            name="periode"
-            type="text"
-            class="da-input da-input--icon-left"
-            placeholder="JJ/MM/AAAA — JJ/MM/AAAA"
-            autocomplete="off"
-            readonly
-        >
-    </div>
-
-    <!-- En cas d'erreur -->
-    <p class="da-field-error" role="alert">
-        <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
-        Message d'erreur
-    </p>
-
-    <!-- Ou texte d'aide -->
-    <p class="da-field-help">Texte d'aide</p>
-</div>
-```
-
----
-
 ## Classes CSS de référence
 
 | Classe | Rôle |

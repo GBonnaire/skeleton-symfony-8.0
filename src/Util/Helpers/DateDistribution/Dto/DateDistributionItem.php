@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Util\Helpers\DateDistribution\Dto;
 
 use DateTime;
 

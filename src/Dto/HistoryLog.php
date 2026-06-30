@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace App\Dto;
 
 use DateTime;
 
-class HistoryLogModel
+class HistoryLog
 {
     private DateTime $createdAt;
     private string $field;

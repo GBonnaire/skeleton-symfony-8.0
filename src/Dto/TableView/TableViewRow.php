@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model\TableView;
+namespace App\Dto\TableView;
 
-class TableViewRowModel
+class TableViewRow
 {
     private array $data = [
         '__RESPONSIVE' => '',

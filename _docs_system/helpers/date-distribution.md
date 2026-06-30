@@ -1,8 +1,8 @@
 # Helper — DateDistribution
 
-**Fichier :** `src/Util/Helpers/DateDistribution.php`  
-**Namespace :** `App\Util\Helpers`  
-**Dépendances :** `App\Model\DateDistributionItem`, `DateInterval`, `DatePeriod`
+**Fichier :** `src/Util/Helpers/DateDistribution/DateDistribution.php`  
+**Namespace :** `App\Util\Helpers\DateDistribution`  
+**Dépendances :** `App\Util\Helpers\DateDistribution\Dto\DateDistributionItem`, `DateInterval`, `DatePeriod`
 
 Répartit un tableau d'éléments sur des créneaux temporels générés par un intervalle entre deux dates.  
 Retourne une liste de `DateDistributionItem` triée par date croissante.
