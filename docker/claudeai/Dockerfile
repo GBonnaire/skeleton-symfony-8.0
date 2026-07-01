@@ -51,6 +51,7 @@ RUN docker-php-ext-install zip
 RUN docker-php-ext-install curl
 RUN docker-php-ext-install intl
 RUN docker-php-ext-enable intl
+RUN docker-php-ext-install calendar
 
 RUN usermod -u 1000 www-data
 
