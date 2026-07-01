@@ -250,6 +250,12 @@ Classes utilitaires 100 % statiques (aucune instanciation), documentées dans [`
 - `JwtService` — génération / validation de jetons
 - `MessengerSchedulerService` — planification de messages (voir [`service-messenger-scheduler.md`](_docs_system/services/service-messenger-scheduler.md))
 
+### Extensions Twig — `src/Twig/Extension/`
+
+Déclarées **exclusivement** via les attributs natifs (`#[AsTwigFilter]`, `#[AsTwigFunction]`, `#[AsTwigComponent]`) — jamais `extends AbstractExtension`.
+
+- `TranslationExtension` — filtre `transFlash` (traduction des messages flash, domaine `flash`), voir [`extension-translation.md`](_docs_system/extensions/extension-translation.md)
+
 ### Traits Doctrine — `src/Util/Doctrine/`
 
 `CreatedAtTrait`, `UpdatedAtTrait`, `CreatedByTrait`, `ActiveTrait`, `HistoryLogTrait` — pour composer rapidement les entités.

@@ -5,15 +5,16 @@
 account:
   login:
     error: "Identifiants invalides. Veuillez vérifier votre email et votre mot de passe."
-    success: "Connexion réussie. Bienvenue !"
-  logout:
-    success: "Vous avez été déconnecté avec succès."
   password_change:
     success: "Votre mot de passe a été modifié avec succès."
     error: "Le mot de passe actuel est incorrect."
-  section:
-    saved: "Informations enregistrées avec succès."
 
 # RegistrationController
 registration:
   success: "Votre compte a été créé avec succès. Bienvenue !"
+
+# ResetPasswordController
+reset_password:
+  invalid_token: "Demande de réinitialisation du mot de passe invalide ou expirée. Veuillez réessayer."
+  problem_validate: "Un problème est survenu lors de la validation de votre demande de réinitialisation du mot de passe."
+  problem_handle: "Un problème est survenu lors du traitement de votre demande de réinitialisation du mot de passe."

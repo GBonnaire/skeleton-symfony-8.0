@@ -53,7 +53,7 @@ class RegistrationController extends AbstractController
             // Message de succès
             $this->addFlash(
                 'success',
-                $translator->trans('registration.success', [], 'flash')
+                'registration.success'
             );
 
             // Authenticate user

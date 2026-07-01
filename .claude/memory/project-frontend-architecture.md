@@ -74,6 +74,18 @@ Dans le template Twig de la page, charger l'entrée dans les blocs :
 - La **page** hérite du layout via `{% extends 'layouts/xxx.html.twig' %}`
 - Les CSS de page sont chargés via un bloc `{% block stylesheets %}` dans le template de page
 
+## Extensions Twig — attributs obligatoires
+
+Toute extension Twig (`src/Twig/Extension/`) doit **exclusivement** utiliser les attributs natifs, jamais l'ancien système (`extends AbstractExtension` + `getFilters()`/`getFunctions()`) :
+
+- `#[AsTwigFilter]` — pour déclarer un filtre
+- `#[AsTwigFunction]` — pour déclarer une fonction
+- `#[AsTwigComponent]` — pour déclarer un composant
+
+
+L'ancien système (`extends AbstractExtension` + `getFilters()` / `getFunctions()`) est **proscrit**. Les attributs rendent la classe plus légère (pas d'héritage), auto-documentée et directement auto-configurée par Symfony.
+
+
 ## theme.css — config centrale
 
 Fichier : `assets/styles/theme.css`

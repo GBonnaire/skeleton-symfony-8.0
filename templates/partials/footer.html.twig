@@ -10,4 +10,13 @@
 
     </div>
 </footer>
+
+{# Toasters pour chaque message flash (error, notice, success) #}
+{% set flash_toast_types = {'error': 'danger', 'notice': 'notice', 'success': 'success'} %}
+{% for flash_type, toast_type in flash_toast_types %}
+    {% for message in app.flashes(flash_type) %}
+        <twig:Toast type="{{ toast_type }}" :message="message|transFlash" />
+    {% endfor %}
+{% endfor %}
+
 {% endblock %}

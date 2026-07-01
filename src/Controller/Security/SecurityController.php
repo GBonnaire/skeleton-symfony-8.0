@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         if (null != $error) {
-            $error = $translator->trans('flash.account.login.error', [], 'messages');
+            $error = 'account.login.error';
         }
 
         // last username entered by the user

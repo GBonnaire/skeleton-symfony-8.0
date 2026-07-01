@@ -27,7 +27,6 @@ class ResetPasswordController extends AbstractController
         private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         private readonly EntityManagerInterface $entityManager,
         private readonly MailerService $mailerService,
-        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -85,7 +84,7 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            $this->addFlash('error', 'Invalid or expired password reset request. Please try again.');
+            $this->addFlash('error', $translator->trans('reset_password.invalid_token', [], 'flash'));
 
             return $this->redirectToRoute('app_login');
         }
@@ -94,11 +93,7 @@ class ResetPasswordController extends AbstractController
             /** @var User $user */
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->addFlash('reset_password_error', \sprintf(
-                '%s - %s',
-                $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, [], 'ResetPasswordBundle'),
-                $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
-            ));
+            $this->addFlash('error', 'reset_password.problem_validate');
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
@@ -120,6 +115,8 @@ class ResetPasswordController extends AbstractController
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
+
+            $this->addFlash('success', 'account.password_change.success');
 
             return $this->redirectToRoute('app_home');
         }
@@ -147,11 +144,7 @@ class ResetPasswordController extends AbstractController
             // the lines below and change the redirect to 'app_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.
             //
-            $this->addFlash('reset_password_error', sprintf(
-                '%s - %s',
-                $this->translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_HANDLE, [], 'ResetPasswordBundle'),
-                $this->translator->trans($e->getReason(), [], 'ResetPasswordBundle')
-            ));
+            $this->addFlash('reset_password_error', 'reset_password.problem_handle');
 
             return $this->redirectToRoute('app_forgot_password_request');
         }
