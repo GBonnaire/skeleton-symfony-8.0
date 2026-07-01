@@ -74,12 +74,8 @@ Ils reproduisent un `composer create-project` : clonage du squelette, réinitial
 ### Linux / macOS
 
 ```bash
-# Télécharger l'installeur
-curl -fsSLO https://raw.githubusercontent.com/GBonnaire/skeleton-installer/main/symfony-8.0/create-project.sh
-chmod +x create-project.sh
-
-# Lancer (répertoire de destination en argument, sinon demandé interactivement)
-./create-project.sh mon-app
+# Utiliser l'installeur (remplacer mon-app par le nom de votre application slugentifier)
+curl -fsSL https://raw.githubusercontent.com/GBonnaire/skeleton-installer/main/symfony-8.0/create-project.sh | bash -s mon-app
 ```
 
 ### Windows
@@ -395,5 +391,4 @@ Toute la documentation du squelette se trouve dans le dossier [`_docs_system/`](
 ## Licence MIT
 
 Projet — GBonnaire.fr.
-```
 
