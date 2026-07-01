@@ -27,7 +27,6 @@ une fois que tu as toutes ces informations tu mets à jour ta mémoire (`.claude
 
 ## Prérequis techniques avant de commencer le dev
 
-- Génère un APP_SECRET (alphanumérique sur 128 caractères) dans le fichier `.env`
 - Vérifie si un GIT est initialisé, si ce n'est pas le cas propose à l'utilisateur d'initialiser un GIT
 - Vérifie si le répertoire vendor est présent et les packages sont installés, sinon lancer un `composer install`
 - Si il utilise claude design rappeler de bien idniquer dans le prompt d'utiliser Tailwind et Fontawesome. Tu pourras lui proposer un prompt à intégrer dans ces instructions claude design
