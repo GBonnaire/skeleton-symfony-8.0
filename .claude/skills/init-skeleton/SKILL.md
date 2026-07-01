@@ -29,7 +29,7 @@ une fois que tu as toutes ces informations tu mets à jour ta mémoire (`.claude
 - Ajoute toutes les tâches ci-dessous dans ta TODO et traite les tâches une par une, une fois terminé tu passeras à la tâche suivante
 - Vérifie si un GIT est initialisé, si ce n'est pas le cas propose à l'utilisateur d'initialiser un GIT
 - Vérifie si le répertoire vendor est présent et les packages sont installés, sinon lancer un `composer install`
-- Si le skill `/bmad-create-prd` existe, l'exécuter et une fois le PRD créé reprendre les tâches suivantes
+- Si le skill `/bmad-prd` existe, l'exécuter et une fois le PRD créé reprendre les tâches suivantes
 - Si il utilise claude design rappeler de bien idniquer dans le prompt d'utiliser Tailwind et Fontawesome. Tu pourras lui proposer un prompt à intégrer dans ces instructions claude design
 - Si le design est déjà fait, propose lui de mettre à jour le thème, s'il accepte exécute la commande `/update-design-system`
 - Si le README existe déjà, propose de refaire entièrement le README, s'il accepte exécute la commande `/update-readme`
