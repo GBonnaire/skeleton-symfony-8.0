@@ -341,10 +341,21 @@ body {
 }
 
 .da-pill-checkbox input:checked + .da-pill-checkbox__label {
-    box-shadow: inset 0 0 0 1px #0F558A;
-    background-color: #E8F2FA;
-    color: #0A4470;
+    box-shadow: inset 0 0 0 1px #0058BB;
+    background-color: #EFF6FF;
+    color: #00468F;
     font-weight: 500;
+    position: relative;
+}
+
+/* Icône check (FontAwesome) devant le libellé d'une pill cochée */
+.da-pill-checkbox input:checked + .da-pill-checkbox__label::before {
+    content: "\f058";
+    font-family: "Font Awesome 7 Free";
+    font-weight: 900;
+    margin-right: 6px;
+    position: absolute;
+    left: 10px;
 }
 
 /* Segmented control */
