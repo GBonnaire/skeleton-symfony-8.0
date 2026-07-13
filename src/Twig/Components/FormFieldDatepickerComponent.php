@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components;
 
+use DateTimeImmutable;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 use Symfony\UX\TwigComponent\Attribute\PostMount;
 
@@ -48,7 +49,7 @@ use Symfony\UX\TwigComponent\Attribute\PostMount;
  * <twig:FormFieldDatepicker
  *     name="periode"
  *     label="Période de surveillance"
- *     value="01/05/2026 — 31/05/2026"
+ *     value="2026-05-01@2026-05-31"
  *     error="La date de fin doit être postérieure à la date de début."
  *     help="La surveillance s'arrête automatiquement à la date de fin."
  * />
@@ -60,7 +61,8 @@ use Symfony\UX\TwigComponent\Attribute\PostMount;
  * @property string $name Attribut name de l'input
  * @property string $label Texte du label
  * @property string $placeholder Placeholder de l'input
- * @property string $value Valeur initiale pré-remplie
+ * @property string $value Valeur machine initiale « yyyy-mm-dd@yyyy-mm-dd » (ou « yyyy-mm-dd » en date
+ *                         unique). Soumise via un input caché ; l'affichage reste lisible (DD/MM/YYYY).
  * @property bool $required Marque le champ comme obligatoire
  * @property bool $disabled Désactive le champ
  * @property string $help Texte d'aide affiché sous le champ
@@ -98,11 +100,50 @@ class FormFieldDatepickerComponent
     public bool $autoApply = false;
     public bool $showRanges = false;
 
+    /** Valeur d'affichage (lisible) dérivée côté serveur de la valeur machine `value`. */
+    public string $displayValue = '';
+
     #[PostMount]
     public function postMount(): void
     {
         if ('' === $this->id) {
             $this->id = 'drp_' . substr(uniqid(), -8);
         }
+
+        $this->displayValue = $this->buildDisplayValue();
+    }
+
+    /**
+     * Convertit la valeur machine « yyyy-mm-dd@yyyy-mm-dd » en affichage lisible (ex. « 01/07/2026 — 07/07/2026 »),
+     * pour que l'input visible soit rempli dès le rendu serveur (rafraîchissement, JS non encore chargé).
+     */
+    private function buildDisplayValue(): string
+    {
+        if ('' === $this->value) {
+            return '';
+        }
+
+        $phpFormat = $this->momentToPhpFormat($this->format);
+        $display = [];
+        foreach (explode('@', $this->value) as $part) {
+            $date = DateTimeImmutable::createFromFormat('!Y-m-d', trim($part));
+            if (false === $date) {
+                return $this->value; // Valeur déjà non-machine : on la laisse telle quelle.
+            }
+            $display[] = $date->format($phpFormat);
+        }
+
+        return implode($this->separator, $display);
+    }
+
+    /** Traduction minimale des tokens moment.js utilisés vers leurs équivalents PHP date(). */
+    private function momentToPhpFormat(string $momentFormat): string
+    {
+        return strtr($momentFormat, [
+            'YYYY' => 'Y',
+            'YY' => 'y',
+            'MM' => 'm',
+            'DD' => 'd',
+        ]);
     }
 }

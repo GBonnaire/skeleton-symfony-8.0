@@ -38,7 +38,7 @@ const LOCALE_FR = {
     customRangeLabel: 'Période personnalisée',
     daysOfWeek:       ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
     monthNames:       ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
     firstDay:         1,
 };
 
@@ -59,6 +59,25 @@ export default class extends Controller {
     connect() {
         this._input = this.element.querySelector('input[type="text"]');
         if (!this._input) return;
+
+        // Input caché portant la valeur machine soumise (« yyyy-mm-dd@yyyy-mm-dd »).
+        this._hidden = this.element.querySelector('input[type="hidden"]');
+
+        if(this._hidden) {
+            this._input.removeAttribute('name');
+        }
+
+        // Pré-remplit l'affichage lisible à partir de la valeur machine initiale.
+        if (this._hidden && this._hidden.value) {
+            const [rawStart, rawEnd] = this._hidden.value.split('@');
+            const start = moment(rawStart, 'YYYY-MM-DD', true);
+            const end = moment(rawEnd || rawStart, 'YYYY-MM-DD', true);
+            if (start.isValid()) {
+                this._input.value = this.singleDateValue
+                    ? start.format(this.formatValue)
+                    : start.format(this.formatValue) + this.separatorValue + end.format(this.formatValue);
+            }
+        }
 
         const locale = Object.assign({}, LOCALE_FR, {
             format:    this.formatValue,
@@ -89,16 +108,26 @@ export default class extends Controller {
         }
 
         DateRangePicker.init(this._input, options, (start, end) => {
+            // Affichage lisible sur l'input visible.
             this._input.value = this.singleDateValue
                 ? start.format(this.formatValue)
                 : start.format(this.formatValue) + this.separatorValue + end.format(this.formatValue);
 
-            this._input.dispatchEvent(new Event('change', { bubbles: true }));
+            // Valeur machine soumise (« yyyy-mm-dd@yyyy-mm-dd ») sur l'input caché.
+            if (this._hidden) {
+                this._hidden.value = this.singleDateValue
+                    ? start.format('YYYY-MM-DD')
+                    : start.format('YYYY-MM-DD') + '@' + end.format('YYYY-MM-DD');
+                this._hidden.dispatchEvent(new Event('change', { bubbles: true }));
+            } else {
+                this._input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
         });
     }
 
     disconnect() {
         this._input?._daterangepicker?.remove();
         this._input = null;
+        this._hidden = null;
     }
 }

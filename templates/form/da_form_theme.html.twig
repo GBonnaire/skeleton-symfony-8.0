@@ -247,13 +247,19 @@
     {%- if errors|length > 0 -%}{%- set _cls = (_cls ~ ' da-input--error')|trim -%}{%- endif -%}
     {%- set attr = attr|merge({class: _cls, readonly: 'readonly', autocomplete: 'off'}) -%}
 
-    <div {{ stimulus_controller('components/twig/form-field-datepicker', stimulus_values) }}>
-        <div class="da-input-wrapper">
-            <i class="fa-regular {{ single_date ? 'fa-calendar' : 'fa-calendar-days' }} da-input-icon da-input-icon--left"
-               aria-hidden="true"></i>
-            <input type="text" {{ block('widget_attributes') }}>
-        </div>
-    </div>
+    <twig:FormFieldDatepicker
+        singleDate="{{ single_date }}"
+        opens="{{ opens }}"
+        drops="{{ drops }}"
+        format="{{ format }}"
+        separator="{{ separator }}"
+        minDate="{{ min_date }}"
+        maxDate="{{ max_date }}"
+        autoApply="{{ auto_apply }}"
+        showRanges="{{ show_ranges }}"
+        name="{{ full_name }}"
+        attr="{{ block('widget_attributes') }}"
+    />
 {%- endblock -%}
 
 {# ══════════════════════════════════════════════════════════════════════════

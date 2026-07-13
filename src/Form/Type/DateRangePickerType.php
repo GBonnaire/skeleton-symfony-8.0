@@ -2,8 +2,12 @@
 
 namespace App\Form\Type;
 
+use App\Dto\DateRangePicker\DateRange;
+use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,7 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Champ de sélection de plage de dates (ou date unique) piloté par DateRangePicker.
  *
- * Hérite de TextType : la valeur stockée est une chaîne dans le format choisi.
+ * La valeur transportée est une chaîne machine « yyyy-mm-dd@yyyy-mm-dd » (l'affichage, lui,
+ * reste au format lisible `DD/MM/YYYY` — géré côté composant). Ce type renvoie un DTO
+ * {@see DateRange} (`dateStart` / `dateEnd`) grâce à un model transformer.
  * Le rendu est délégué au form theme via le bloc `date_range_picker_widget`.
  *
  * Usage dans un FormType PHP :
@@ -49,6 +55,38 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class DateRangePickerType extends AbstractType
 {
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->addModelTransformer(new CallbackTransformer(
+        // DateRange (modèle) → chaîne machine « yyyy-mm-dd@yyyy-mm-dd »
+            static function (?DateRange $range) use ($options): string {
+                if (!$range instanceof DateRange || null === $range->dateStart) {
+                    return '';
+                }
+                $start = $range->dateStart->format('Y-m-d');
+                if ($options['single_date']) {
+                    return $start;
+                }
+
+                return $start . '@' . ($range->dateEnd ?? $range->dateStart)->format('Y-m-d');
+            },
+            // Chaîne machine → DateRange
+            static function (?string $value): DateRange {
+                $value = trim((string) $value);
+                if ('' === $value) {
+                    return new DateRange();
+                }
+                $parts = array_map('trim', explode('@', $value));
+                $start = DateTimeImmutable::createFromFormat('!Y-m-d', $parts[0]) ?: null;
+                $end = isset($parts[1]) && '' !== $parts[1]
+                    ? (DateTimeImmutable::createFromFormat('!Y-m-d', $parts[1]) ?: null)
+                    : $start;
+
+                return new DateRange($start, $end);
+            }
+        ));
+    }
+
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['single_date'] = $options['single_date'];
@@ -65,6 +103,9 @@ class DateRangePickerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            // La donnée du champ est un DateRange, mais la vue/norm est une chaîne (cf. model transformer) :
+            // data_class à null évite que Symfony n'infère DateRange comme classe de la vue.
+            'data_class' => null,
             'single_date' => false,
             'opens' => 'right',
             'drops' => 'down',
@@ -73,7 +114,7 @@ class DateRangePickerType extends AbstractType
             'min_date' => '',
             'max_date' => '',
             'auto_apply' => false,
-            'show_ranges' => false,
+            'show_ranges' => true,
         ]);
 
         $resolver->setAllowedTypes('single_date', 'bool');
