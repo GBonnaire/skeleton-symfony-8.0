@@ -1,12 +1,13 @@
 ---
 name: init-skeleton
-description: Initialize tous les éléments pour la génération de code par l'IA
+description: Initialise tous les éléments pour la génération de code par l'IA
 ---
 
 # Préambule
 
-Ajoute dans ta mémoire globale que le premier fichier à lire à chaque nouvelle session est le fichier `.claude/memory/MEMORY.md`
-puis charge le fichier `.claude/memory/MEMORY.md`
+Ajoute dans ta mémoire globale que le premier fichier à lire à chaque nouvelle session est le fichier `.claude/memory/MEMORY.md` et `CLAUDE.md`
+
+puis charge le fichier `.claude/memory/MEMORY.md` et `CLAUDE.md`
 
 ## Objectif
 

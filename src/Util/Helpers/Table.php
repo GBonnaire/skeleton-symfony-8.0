@@ -76,14 +76,19 @@ class Table
 
     /**
      * Vérifie si $value est présente dans $values par comparaison stricte.
-     * Si $valueNormalized est false, normalise d'abord $value via Text::normalize().
+     * Si $checkNormalizedValue est true, normalise d'abord $value via Text::normalize() et chaque valeur du tableau.
      */
-    public static function matchValueInArray($value, array $values, bool $valueNormalized = true): bool
+    public static function matchValueInArray($value, array $values, bool $checkNormalizedValue = true, bool $valuesOfArrayIsAlreadyNormalized = true): bool
     {
-        if (!$valueNormalized) {
+        if ($checkNormalizedValue) {
             $value = Text::normalize($value);
         }
         foreach ($values as $v) {
+
+            if(!$valuesOfArrayIsAlreadyNormalized && $checkNormalizedValue) {
+                $v = Text::normalize($v);
+            }
+
             if ($v === $value) {
                 return true;
             }

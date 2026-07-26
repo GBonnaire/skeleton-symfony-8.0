@@ -48,11 +48,25 @@ class MailerService
     /**
      * Génère un email à partir d'un template Twig.
      */
-    public function getTemplate($recipient, $subject, $template, $context = [], $replyTo = null): TemplatedEmail
+    public function getTemplate($recipient, $subject, $template, $context = [], $replyTo = null): bool|TemplatedEmail
     {
         $email = new TemplatedEmail();
         $email->from(new Address($this->config['fromEmail'], $this->config['fromName']));
-        $email->to($recipient);
+
+        if(is_string($recipient)) {
+            $recipient = [$recipient];
+        }
+        $recipients = array_values(array_filter(array_map(
+            'trim',
+            (array) $recipient
+        )));
+
+        if (empty($recipients)) {
+            return false;
+        }
+
+        $email->to(...$recipients);
+
         if ($replyTo) {
             $email->replyTo($replyTo);
         }
@@ -69,6 +83,9 @@ class MailerService
     private function send($recipient, $subject, $template, $context = [], $replyTo = null, array $attachments = []): bool
     {
         $email = $this->getTemplate($recipient, $subject, $template, $context, $replyTo);
+        if($email === false) {
+            return false;
+        }
         if (\count($attachments) > 0) {
             foreach ($attachments as $attachment) {
                 $email->attachFromPath($attachment);

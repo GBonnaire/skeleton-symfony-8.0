@@ -70,7 +70,7 @@ export class ConditionalField extends EventsDispatcher {
             }
             this.fieldElement.removeAttribute('required');
         } else {
-            this.#formElement.querySelectorAll('input[name], select[name], textarea[name]').forEach((field) => {
+            this.fieldElement.querySelectorAll('input[name], select[name], textarea[name]').forEach((field) => {
                 this.#fields.push(field);
                 field.setAttribute('data-default-value', field.value);
                 if (field.required) {

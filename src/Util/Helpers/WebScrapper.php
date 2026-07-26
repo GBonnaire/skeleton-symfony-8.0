@@ -11,7 +11,7 @@ use DOMDocument;
  */
 class WebScrapper
 {
-    public const string USERAGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36';
+    public const string USERAGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36';
 
     public const array HTTP_HEADERS = [
         'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
