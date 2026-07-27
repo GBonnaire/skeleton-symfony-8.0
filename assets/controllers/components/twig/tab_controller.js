@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { TabManager } from '../../../js/modules/tab/tab';
+import { TabManager } from '../../../js/modules/tab/tab-manager';
 import '../../../styles/components/twig/tab.css';
 
 /*
