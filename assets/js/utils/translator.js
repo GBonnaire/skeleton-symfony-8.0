@@ -200,18 +200,18 @@ export default class Translator extends Singleton {
         }
         if(!this.transDictionary[lang][domain]) {
             if(domain !== "__GLOBAL__") {
-                if(this.transDictionary[lang]["__GLOBAL__"] && this.transDictionary[lang]["__GLOBAL__"][text]) {
+                if(this.transDictionary[lang]["__GLOBAL__"] && this.transDictionary[lang]["__GLOBAL__"][text]!==null) {
                     return this.transDictionary[lang]["__GLOBAL__"][text];
                 }
             }
             return text;
         }
 
-        if(this.transDictionary[lang][domain][text]) {
+        if(this.transDictionary[lang][domain][text]!==null) {
             return this.transDictionary[lang][domain][text];
         }
         if(domain !== "__GLOBAL__") {
-            if(this.transDictionary[lang]["__GLOBAL__"] && this.transDictionary[lang]["__GLOBAL__"][text]) {
+            if(this.transDictionary[lang]["__GLOBAL__"] && this.transDictionary[lang]["__GLOBAL__"][text]!==null) {
                 return this.transDictionary[lang]["__GLOBAL__"][text];
             }
         }
