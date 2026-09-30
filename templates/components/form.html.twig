@@ -20,6 +20,7 @@
 
                     {% if form %}
                         {{ form_start(form, {attr: {class: "form grid gap-6", 'data-controller': 'components--forms--form'}}) }}
+                        {{ form_errors(form) }}
                     {% endif %}
 
                     {% block fields %}{% endblock %}
