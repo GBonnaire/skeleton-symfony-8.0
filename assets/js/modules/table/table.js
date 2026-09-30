@@ -422,7 +422,7 @@ export class Table extends EventsDispatcher {
                     const target = e.target;
                     if(target === trElement || target.parentNode === trElement) {
                         this._dispatchEvent("click-row", this, trElement);
-                        if(target.classList.contains("dtr-control")) {
+                        if(!target.classList.contains("dtr-control")) {
                             const href = trElement.getAttribute("data-href") ?? trElement.children[0].getAttribute("data-href");
                             if(href) {
                                 window.location.href = href;
