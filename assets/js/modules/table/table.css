@@ -175,15 +175,16 @@ table.dataTable .dt-type-numeric {
   text-align: left !important;
 }
 
-table.dataTable .actions div {
+.table-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 5px;
+  flex-wrap: wrap;
 }
 
-table.dataTable .actions div a,
-table.dataTable .actions div button {
+.table-actions a,
+.table-actions button {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: var(--da-canvas);
   border-radius: 5px;
@@ -201,12 +202,27 @@ table.dataTable .actions div button {
   cursor: pointer;
 }
 
-table.dataTable .actions div a:hover,
-table.dataTable .actions div a:active,
-table.dataTable .actions div button:hover,
-table.dataTable .actions div button:active {
+.table-actions a:hover,
+.table-actions a:active,
+.table-actions button:hover,
+.table-actions button:active {
   background-color: var(--da-brand);
   color: var(--da-surface);
+}
+
+/* Repli du tableau (DataTables Responsive) : le contenu de la colonne actions atterrit dans
+   `.dtr-data` sans hériter de la classe de la cellule d'origine — un empilement vertical est
+   plus lisible qu'une rangée d'icônes serrées dans la largeur réduite du panneau replié. */
+li[data-dt-column] .dtr-data .table-actions {
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+li[data-dt-column] .dtr-data .table-actions a,
+li[data-dt-column] .dtr-data .table-actions button {
+  justify-content: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 table.dataTable.table-bordered {

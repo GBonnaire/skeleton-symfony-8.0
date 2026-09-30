@@ -118,8 +118,50 @@ class TableComponent
 
         $tableData = $this->data->toArray();
         $this->columns = $tableData['columns'] ?? [];
-        $this->rows = $tableData['data'] ?? [];
+        $this->rows = array_map($this->renderRowActions(...), $tableData['data'] ?? []);
         $this->columnOrders = $this->resolveColumnOrders($tableData);
+    }
+
+    /**
+     * Convertit la liste d'actions posée par `TableViewRow::addAction()` / `addRawAction()` en HTML, pour le rendu
+     * SSR : `table.html.twig` affiche `row['__ACTIONS']` tel quel, qui doit donc déjà être une chaîne (comme en
+     * mode AJAX, où `table.js::parseData()` fait la même conversion). Une action déjà rendue (`addRawAction()`,
+     * ex. formulaire POST + CSRF + confirmation) est recopiée telle quelle.
+     *
+     * @param mixed[] $row
+     *
+     * @return mixed[]
+     */
+    private function renderRowActions(array $row): array
+    {
+        if (!isset($row['__ACTIONS']) || !\is_array($row['__ACTIONS'])) {
+            return $row;
+        }
+
+        $html = '';
+        foreach ($row['__ACTIONS'] as $action) {
+            if (!empty($action['html'])) {
+                $html .= $action['html'];
+
+                continue;
+            }
+
+            $attributes = '';
+            if (!empty($action['confirm'])) {
+                $attributes = \sprintf(' title="%s" class="confirm-action"', htmlspecialchars($action['confirm'], \ENT_QUOTES));
+            } elseif (!empty($action['confirm-remove'])) {
+                $attributes = \sprintf(' title="%s" class="confirm-remove"', htmlspecialchars($action['confirm-remove'], \ENT_QUOTES));
+            }
+
+            $icon = empty($action['icon']) ? '' : \sprintf('<i class="%s"></i>', htmlspecialchars($action['icon'], \ENT_QUOTES));
+            $label = empty($action['label']) ? '' : \sprintf('<span>%s</span>', htmlspecialchars($action['label'], \ENT_QUOTES));
+
+            $html .= \sprintf('<a href="%s"%s>%s%s</a>', htmlspecialchars($action['url'] ?? '', \ENT_QUOTES), $attributes, $icon, $label);
+        }
+
+        $row['__ACTIONS'] = '<div class="table-actions">' . $html . '</div>';
+
+        return $row;
     }
 
     /** @param mixed[] $tableData */

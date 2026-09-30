@@ -220,7 +220,11 @@ export class Table extends EventsDispatcher {
                 if(aData["__href"]) {
                     trElement.addEventListener("click", (e) => {
                         const elementClick = e.target;
-                        if(!(elementClick?.classList.contains("dtr-control") && elementClick?.innerText == "")) {
+                        const isDtrControl = elementClick?.classList.contains("dtr-control") && elementClick?.innerText == "";
+                        // Un clic sur un lien, un bouton ou un champ de la ligne (colonne actions, case à cocher,
+                        // formulaire de saisie en ligne…) suit son propre comportement : la ligne ne navigue pas.
+                        const isInteractive = elementClick?.closest?.("a, button, input, select, textarea, label");
+                        if(!isDtrControl && !isInteractive) {
                             window.location.href = aData["__href"];
                         }
                     });
@@ -449,6 +453,12 @@ export class Table extends EventsDispatcher {
                     const actions = [];
 
                     for (const actionRaw of row['__ACTIONS']) {
+                        // Action déjà rendue en HTML (TableViewRow::addRawAction, ex. formulaire POST + CSRF + confirmation)
+                        if (actionRaw['html']) {
+                            actions.push(actionRaw['html']);
+                            continue;
+                        }
+
                         let action = document.createElement("A")
                         if(actionRaw['url']) {
                             action.setAttribute("href", actionRaw['url']);
@@ -476,7 +486,7 @@ export class Table extends EventsDispatcher {
                         actions.push(action.outerHTML);
                     }
 
-                    data[indexRow]['__ACTIONS'] = `<div>`+actions.join("")+`</div>`;
+                    data[indexRow]['__ACTIONS'] = `<div class="table-actions">`+actions.join("")+`</div>`;
 
                 } else if(!row['__ACTIONS']) {
                     row['__ACTIONS'] = "";
