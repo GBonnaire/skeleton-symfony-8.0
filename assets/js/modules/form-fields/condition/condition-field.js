@@ -113,6 +113,8 @@ export class ConditionalField extends EventsDispatcher {
             if (this.#fieldsTracked[field].type === 'radio') {
                 const fieldSelected = this.#formElement.querySelector('input[name="' + this.#fieldsTracked[field].name + '"]:checked');
                 values[field] = fieldSelected ? fieldSelected.value : '';
+            } else if (this.#fieldsTracked[field].type === 'checkbox') {
+                values[field] = this.#fieldsTracked[field].checked ? this.#fieldsTracked[field].value : '';
             } else {
                 values[field] = this.#fieldsTracked[field].value;
             }
