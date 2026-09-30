@@ -50,22 +50,23 @@
         </thead>
 
         <tbody>
-            {%- for row in rows -%}
+        {%- for row in rows -%}
             <tr>
+                {%- set href = row['__href'] is defined ? "data-href=" ~ row['__href'] ~ " " : "" -%}
                 {%- for col in columns -%}
-                {%- set field_key = col.data['_'] -%}
-                {%- if field_key not in row|keys -%}
-                <td></td>
-                {%- else -%}
-                {%- set td_class = ((col.class|default('')) ~ ' ' ~ (col.data.class is defined ? row[col.data.class]|default('') : ''))|trim -%}
-                {%- set sort_val = col.data.sort is defined ? row[col.data.sort]|default('') : null -%}
-                <td{%- if td_class %} class="{{ td_class }}"{% endif %}{%- if sort_val is not null %} data-order="{{ sort_val }}"{% endif %}>
-                    {{- row[field_key]|raw -}}
-                </td>
-                {%- endif -%}
+                    {%- set field_key = col.data['_'] -%}
+                    {%- if field_key not in row|keys -%}
+                        <td {{ href }}></td>
+                    {%- else -%}
+                        {%- set td_class = ((col.class|default('')) ~ ' ' ~ (col.data.class is defined ? row[col.data.class]|default('') : ''))|trim -%}
+                        {%- set sort_val = col.data.sort is defined ? row[col.data.sort]|default('') : null -%}
+                        <td {{ href }}{%- if td_class %} class="{{ td_class }}"{% endif %}{%- if sort_val is not null %} data-order="{{ sort_val }}"{% endif %}>
+                            {{- row[field_key]|raw -}}
+                        </td>
+                    {%- endif -%}
                 {%- endfor -%}
             </tr>
-            {%- endfor -%}
+        {%- endfor -%}
         </tbody>
 
     </table>

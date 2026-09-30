@@ -26,9 +26,10 @@ final readonly class DateRange
 
     public function __toString(): string
     {
-        if($this->isEmpty()) {
+        if ($this->isEmpty()) {
             return '';
         }
+
         return $this->dateStart->format('Y-m-d') . '@' . $this->dateEnd->format('Y-m-d');
     }
 }

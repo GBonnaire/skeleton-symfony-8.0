@@ -58,7 +58,7 @@ class DateRangePickerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new CallbackTransformer(
-        // DateRange (modèle) → chaîne machine « yyyy-mm-dd@yyyy-mm-dd »
+            // DateRange (modèle) → chaîne machine « yyyy-mm-dd@yyyy-mm-dd »
             static function (?DateRange $range) use ($options): string {
                 if (!$range instanceof DateRange || null === $range->dateStart) {
                     return '';

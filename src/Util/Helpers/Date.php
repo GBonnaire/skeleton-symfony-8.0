@@ -93,9 +93,7 @@ class Date
     }
 
     /**
-     * Est dimanche
-     * @param DateTime $dateTest
-     * @return bool
+     * Est dimanche.
      */
     public static function isSunday(DateTime $dateTest): bool
     {
@@ -105,9 +103,7 @@ class Date
     }
 
     /**
-     * est Weekend
-     * @param DateTime $dateTest
-     * @return bool
+     * est Weekend.
      */
     public static function isWeekend(DateTime $dateTest): bool
     {

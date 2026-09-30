@@ -183,6 +183,9 @@ export class Table extends EventsDispatcher {
             fixedHeader: false,
             aaSorting: [],
             fnRowCallback: (trElement, aData) => {
+                if(aData['__href'] == null && trElement.children[0].hasAttribute("data-href")) {
+                    aData['__href'] = trElement.children[0].getAttribute("data-href");
+                }
                 if(trElement.children[0].classList.contains("dtr-control")) {
                     trElement.children[0].addEventListener("click", (e) => {
                         setTimeout(() => {
@@ -420,7 +423,7 @@ export class Table extends EventsDispatcher {
                     if(target === trElement || target.parentNode === trElement) {
                         this._dispatchEvent("click-row", this, trElement);
                         if(target.classList.contains("dtr-control")) {
-                            const href = trElement.getAttribute("data-href");
+                            const href = trElement.getAttribute("data-href") ?? trElement.children[0].getAttribute("data-href");
                             if(href) {
                                 window.location.href = href;
                             }

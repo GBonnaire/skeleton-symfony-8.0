@@ -84,8 +84,7 @@ class Table
             $value = Text::normalize($value);
         }
         foreach ($values as $v) {
-
-            if(!$valuesOfArrayIsAlreadyNormalized && $checkNormalizedValue) {
+            if (!$valuesOfArrayIsAlreadyNormalized && $checkNormalizedValue) {
                 $v = Text::normalize($v);
             }
 
