@@ -207,7 +207,7 @@ export default class Translator extends Singleton {
             return text;
         }
 
-        if(this.transDictionary[lang][domain][text]!==null) {
+        if(this.transDictionary[lang][domain][text]!==undefined) {
             return this.transDictionary[lang][domain][text];
         }
         if(domain !== "__GLOBAL__") {

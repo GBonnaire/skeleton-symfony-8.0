@@ -43,6 +43,22 @@ class TableViewRow
         $this->data['____ACTIONS_CLASS'] = $class;
     }
 
+    /**
+     * Ajoute une action déjà rendue en HTML (ex. formulaire POST + CSRF + confirmation), insérée telle quelle
+     * dans la colonne actions — le HTML n'est pas échappé, il doit donc être sûr.
+     */
+    public function addRawAction(string $html, string $class = ''): void
+    {
+        if (!array_key_exists('__ACTIONS', $this->data)) {
+            $this->data['__ACTIONS'] = [];
+        }
+
+        if ('' !== $html) {
+            $this->data['__ACTIONS'][] = ['html' => $html];
+        }
+        $this->data['____ACTIONS_CLASS'] = $class;
+    }
+
     public function setHref(string $url): void
     {
         $this->data['__href'] = $url;
