@@ -117,7 +117,7 @@ export class Table extends EventsDispatcher {
                         },
                         format: {
                             body: (data, indexRow, indexCol, element) => {
-                                const column = tableOptions.columns[indexCol];
+                                const column = tableOptions.columns ? tableOptions.columns[indexCol] : null;
                                 let dataProcessed;
                                 if (column && column.type == "numeric") {
                                     const value = tableOptions['data'][indexRow][column['data']['sort']];
